@@ -1,0 +1,32 @@
+<section class="content-header">
+  <h1>
+    Matrimonio
+    <small>Nuevo</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li><a href="/matrimonios"><i class="fa fa-book"></i> Matriminios</a></li>
+    <li class="active">Nuevo</li>
+  </ol>
+</section>
+
+<section class="content">
+  <div class="box">
+    <%= form_tag('/matrimonios', class: 'form-horizontal') do -%>
+    <div class="box-header with-border">
+      <div class="row">
+        <div class="col-xs-12 col-md-10"></div>
+        <div class="col-xs-6 col-md-1">
+          <%= link_to 'Regresar', matrimonios_path, {class: 'btn btn-default btn-block'} %>
+        </div>
+        <div class="col-xs-6 col-md-1">
+          <%= submit_tag 'Guardar', class: "btn btn-primary btn-block" %>
+        </div>
+      </div>
+    </div>
+
+    <div class="box-body">
+      <%= render 'form', matrimonio: @matrimonio %>
+    </div>
+  <% end -%>
+</section>

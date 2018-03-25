@@ -1,0 +1,29 @@
+<section class="content-header">
+  <h1>Nueva Actividad</h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li><a href="/actividades"><i class="fa fa-calendar"></i> Actividades</a></li>
+    <li class="active">Nueva</li>
+  </ol>
+</section>
+<%= form_with(model: @actividad, local: true, class: 'form-horizontal') do |form| %>
+<section class="content">
+<div class="box box-primary">
+
+    <div class="box-header with-border">
+      <div class="row">
+        <div class="col-xs-12 col-md-10">
+          <h5><strong>Datos de la actividad</strong></h5>
+        </div>
+        <div class="col-xs-6 col-md-1">
+          <%= link_to 'Regresar', @actividad , class: "btn btn-default btn-block"%>
+        </div>
+        <div class="col-xs-6 col-md-1">
+          <%= form.submit 'Guardar', class: 'btn btn-primary btn-block' %>
+        </div>
+      </div>
+    </div>
+  <div class="box-body">
+<%= render 'form', actividad: @actividad, form: form %>
+</div>
+<% end %>

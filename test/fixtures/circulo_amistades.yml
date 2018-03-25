@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombre: MyString
+  direccion: MyString
+  horario: MyString
+  pasivo: false
+
+two:
+  nombre: MyString
+  direccion: MyString
+  horario: MyString
+  pasivo: false

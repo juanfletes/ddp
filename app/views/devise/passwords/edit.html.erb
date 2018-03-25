@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DDP</title>
+  <%= csrf_meta_tags %>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <%= stylesheet_link_tag 'login' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+  <style>
+    a, em {
+      color: #ddd;
+    }
+
+    a:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+ <% flash.each do |key, value| %>
+ <div class="alert alert-<%= key == 'alert' ? "danger" : "success" %> alert-dismissible fade in">
+  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+  <strong><i class="icon fa fa-ban"></i> <%= key == 'alert' ? "Error" : "Información" %>!</strong>
+  <%= value %>
+</div>
+<% end %>
+
+<div class="login" style="width: auto">
+  <h1>Cambia tu contraseña</h1>
+  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+  <%= devise_error_messages! %>
+  <%= f.hidden_field :reset_password_token %>
+  <% if @minimum_password_length %>
+      <em>(<%= @minimum_password_length %> caracteres mínimo)</em><br />
+    <% end %>
+  <%= f.password_field :password, {autofocus: true, placeholder: 'Nueva contraseña', required: 'required', autocomplete: "off"} %>
+  <%= f.password_field :password_confirmation, {autofocus: true, placeholder: 'Confirma tu contraseña', required: 'required', autocomplete: "off"} %>
+  <%= f.submit 'Cambiar contraseña' , {class: 'btn btn-primary btn-block btn-large'}%>
+  <% end %>
+  <br>
+  <span style="color: #fff">
+    <%= render "devise/shared/links" %>
+  </span>
+</div>
+  <script type="text/javascript">
+    setTimeout(function(){ $('.alert').alert('close') }, 5000);
+  </script>
+</body>
+</html>
+

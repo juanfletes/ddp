@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  nombre: MyString
+  fecha: 2017-08-10
+  objetivo: MyString
+  reporte: MyString
+  tipo: 1
+  observacion: MyString
+
+two:
+  nombre: MyString
+  fecha: 2017-08-10
+  objetivo: MyString
+  reporte: MyString
+  tipo: 1
+  observacion: MyString

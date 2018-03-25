@@ -1,0 +1,28 @@
+<% @matrimonios.each do |m| %>
+<div class="row" style="border-bottom: dotted 1px #999; padding-bottom: 5px">
+  <div class="col-xs-12 col-md-3">
+    <strong>
+      <a href="/matrimonios/<%= m.id %>"><%= m.nombre %></a>
+    </strong>
+  </div>
+  <div class="col-xs-12 col-md-8">
+    <strong>
+    <dl>
+      <dt>
+        <%= m.esposo.nombre_completo %> <%= '|' unless m.esposo.telefono.blank? %> <%= m.esposo.telefono %></dt>
+      <dd><%= m.esposa.nombre_completo %> <%= '|' unless m.esposa.telefono.blank? %> <%= m.esposa.telefono %></dd>
+    </dl>
+    </strong>
+  </div>
+  <div class="col-xs-12 col-md-1">
+    <% if m.participa_en_actividad?(@actividad) %>
+      <button id="btn_<%= m.id %>" onclick="agregar_quitar_participante(<%= m.id %>);" class="btn btn-danger btn-sm">Quitar</button>
+    <% else %>
+      <button id="btn_<%= m.id %>" onclick="agregar_quitar_participante(<%= m.id %>);" class="btn btn-primary btn-sm">Agregar</button>
+    <% end %>
+  </div>
+</div>
+<% end %>
+<script>
+  $('#cantidad_integrantes').html(<%= @actividad.cantidad_integrantes %>);
+</script>

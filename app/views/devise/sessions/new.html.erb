@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DDP</title>
+  <%= csrf_meta_tags %>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <%= stylesheet_link_tag 'login' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+  <style>
+    a {
+      color: #ddd;
+    }
+
+    a:hover {
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<div class="login">
+  <h1>DDP</h1>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <%= f.email_field :email, {autofocus: true, placeholder: 'Email', required: 'required'} %>
+  <%= f.password_field :password, {autocomplete: 'off', placeholder: 'Clave', required: 'required'} %>
+  <%= f.submit 'Ingresar' , {class: 'btn btn-primary btn-block btn-large'}%>
+  <% end %>
+  <br>
+  <span style="color: #fff">
+    <%= render "devise/shared/links" %>
+  </span>
+</div>
+  <script type="text/javascript">
+    $(document).ready(function($) {
+      <% if flash.count >0 %>
+      <% flash.each do |type, message| -%>
+      mostrarFlash('<%= type %>','<%= message %>');
+      <% end %>
+      <% end %>
+    });
+  </script>
+</body>
+</html>

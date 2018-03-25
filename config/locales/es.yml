@@ -1,0 +1,48 @@
+es:
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: debe ser aceptado
+      blank: " es requerido"
+      present: "%{attribute} debe estar en blanco"
+      confirmation: no coincide
+      empty: "%{attribute} no puede estar vacío"
+      equal_to: "%{attribute} debe ser igual a %{count}"
+      even: "%{attribute} debe ser par"
+      exclusion: está reservado
+      greater_than: "%{attribute} debe ser mayor que %{count}"
+      greater_than_or_equal_to: "%{attribute} debe ser mayor que o igual a %{count}"
+      inclusion: "%{attribute} no está incluido en la lista"
+      invalid: "%{attribute} el formato no es válido"
+      less_than: "%{attribute} debe ser menor que %{count}"
+      less_than_or_equal_to: "%{attribute} debe ser menor que o igual a %{count}"
+      model_invalid: "La validación falló: %{errors}"
+      not_a_number: "%{attribute} no es un número"
+      not_an_integer: "%{attribute} debe ser un entero"
+      odd: "%{attribute} debe ser impar"
+      required: debe existir
+      taken: "%{attribute} ya está en uso"
+      too_long:
+        one: "El máximo de caracteres de %{attribute} es (1)"
+        other: "El máximo de caracteres de %{attribute} es (%{count})"
+      too_short:
+        one: "El mínimo de caracteres de %{attribute} es (1)"
+        other: "El mínimo de caracteres de %{attribute} es (%{count})"
+      wrong_length:
+        one: "%{attribute} debe tener una longitud de (1 caracter)"
+        other: "%{attribute} debe tener una longitud de (%{count} caracteres)"
+      other_than: "%{attribute} debe ser distinto de %{count}"
+    template:
+      body: 'Se encontraron problemas con los siguientes campos:'
+      header:
+        one: No se pudo guardar este/a %{model} porque se encontró 1 error
+        other: No se pudo guardar este/a %{model} porque se encontraron %{count} errores
+  enum:
+    actividad:
+      tipo:
+        actividad_mensual: 'ACTIVIDAD MENSUAL'
+        cena: 'CENA'
+        retiro: 'RETIRO'
+        boda_civil: 'BODA CIVIL'
+        boda_eclesiastica: 'BODA ECLESIASTICA'
+        charla_prematrimonial: 'CHARLA PREMATRIMONIAL'

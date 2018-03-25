@@ -1,0 +1,96 @@
+<section class="content-header">
+  <h1>Matrimonios</h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li class="active"><i class="fa fa-book"></i> Matriminios</li>
+  </ol>
+</section>
+
+<section class="content">
+  <div class="box box-primary">
+    <div class="box-header">
+        <div class="row">
+          <div class="col-xs-12 col-md-10">
+            <div class="input-group input-group-xs" >
+              <input id="txt-buscar" class="form-control pull-right" placeholder="Buscar..." type="text">
+              <div class="input-group-btn">
+                <button id="btn-buscar" class="btn btn-default">
+                  <i class="fa fa-search"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 col-md-2">
+            <%= link_to 'Nuevo', new_matrimonio_path, { class: 'btn btn-primary btn-block'} %>
+          </div>
+        </div>
+    </div>
+    <div class="box-body">
+      <div id="registros"></div>
+    </div>
+  </div>
+</section>
+<script>
+  function buscar_matrimonios(buscar){
+    $.get('/matrimonios/lista', { buscar: buscar },
+      function(data){
+        $('#registros').empty();
+        $('#registros').append(data);
+      }
+    );
+  }
+
+  $("#btn-buscar").click(function(){
+    buscar_matrimonios($('#txt-buscar').val());
+  });
+
+  $("#txt-buscar").keypress(function(e) {
+    var keycode = (e.keyCode ? e.keyCode : e.which);
+    if (keycode == '13') {
+        buscar_matrimonios($('#txt-buscar').val());
+    }
+  });
+
+  function fn_eliminar(id){
+
+(new PNotify({
+    title: 'Confirmación',
+    text: 'Seguro de eliminar?',
+    icon: 'glyphicon glyphicon-question-sign',
+    hide: false,
+    confirm: {
+        confirm: true
+    },
+    buttons: {
+        sticker: false
+    },
+    history: {
+        history: false
+    },
+    stack: {
+        'dir1': 'down',
+        'dir2': 'right',
+        'modal': true
+    }
+  })).get().on('pnotify.confirm', function() {
+      $.post('/matrimonios/destroy', {id: id}, function(data){
+      if(data.result = true){
+        $('#fila-' + id).remove();
+        mostrarMensaje('Éxito', data.mensaje, 'success');
+      }else {
+        mostrarMensaje('Error', data.mensaje, 'error');
+      }
+    });
+});
+
+
+  }
+
+  <% unless @buscar.blank? %>
+  $(document).ready(function() {
+    $("#txt-buscar").val('<%= @buscar %>');
+    buscar_matrimonios('<%= @buscar %>');
+  });
+  <% end %>
+
+</script>

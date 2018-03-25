@@ -1,0 +1,32 @@
+<%= form_with(model: parametro, local: true) do |form| %>
+  <% if parametro.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(parametro.errors.count, "error") %> prohibited this parametro from being saved:</h2>
+
+      <ul>
+      <% parametro.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :codigo %>
+    <%= form.text_field :codigo, id: :parametro_codigo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :nombre %>
+    <%= form.text_field :nombre, id: :parametro_nombre %>
+  </div>
+
+  <div class="field">
+    <%= form.label :valor %>
+    <%= form.text_field :valor, id: :parametro_valor %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

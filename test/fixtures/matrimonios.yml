@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  esposo_id: 1
+  esposa_id: 1
+  boda_civil: false
+  fecha_civil: false
+  boda_eclesiastica: false
+  fecha_elesiastica: 2017-08-10
+  ddp: false
+  observacion: MyString
+
+two:
+  esposo_id: 1
+  esposa_id: 1
+  boda_civil: false
+  fecha_civil: false
+  boda_eclesiastica: false
+  fecha_elesiastica: 2017-08-10
+  ddp: false
+  observacion: MyString

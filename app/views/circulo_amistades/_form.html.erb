@@ -1,0 +1,37 @@
+<%= form_with(model: circulo_amistad, local: true) do |form| %>
+  <% if circulo_amistad.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(circulo_amistad.errors.count, "error") %> prohibited this circulo_amistad from being saved:</h2>
+
+      <ul>
+      <% circulo_amistad.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :nombre %>
+    <%= form.text_field :nombre, id: :circulo_amistad_nombre %>
+  </div>
+
+  <div class="field">
+    <%= form.label :direccion %>
+    <%= form.text_field :direccion, id: :circulo_amistad_direccion %>
+  </div>
+
+  <div class="field">
+    <%= form.label :horario %>
+    <%= form.text_field :horario, id: :circulo_amistad_horario %>
+  </div>
+
+  <div class="field">
+    <%= form.label :pasivo %>
+    <%= form.check_box :pasivo, id: :circulo_amistad_pasivo %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

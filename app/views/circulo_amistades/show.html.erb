@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Nombre:</strong>
+  <%= @circulo_amistad.nombre %>
+</p>
+
+<p>
+  <strong>Direccion:</strong>
+  <%= @circulo_amistad.direccion %>
+</p>
+
+<p>
+  <strong>Horario:</strong>
+  <%= @circulo_amistad.horario %>
+</p>
+
+<p>
+  <strong>Pasivo:</strong>
+  <%= @circulo_amistad.pasivo %>
+</p>
+
+<%= link_to 'Edit', edit_circulo_amistad_path(@circulo_amistad) %> |
+<%= link_to 'Back', circulo_amistades_path %>

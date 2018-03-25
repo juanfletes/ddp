@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>DDP</title>
+  <%= csrf_meta_tags %>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+</head>
+
+<body class="hold-transition skin-blue-light sidebar-mini">
+  <div class="wrapper">
+    <header class="main-header">
+      <!-- Logo -->
+      <a href="/" class="logo">
+        <!-- mini logo for sidebar mini 50x50 pixels -->
+        <span class="logo-mini"><b>DD</b>P</span>
+        <!-- logo for regular state and mobile devices -->
+        <span class="logo-lg"><b>DD</b>P</span>
+      </a>
+      <!-- Header Navbar: style can be found in header.less -->
+      <nav class="navbar navbar-static-top">
+        <!-- Sidebar toggle button-->
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <span class="sr-only">Toggle navigation</span>
+        </a>
+
+        <div class="navbar-custom-menu">
+          <ul class="nav navbar-nav">
+            <!-- User Account: style can be found in dropdown.less -->
+            <li class="dropdown user user-menu">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <%= gravatar_image_tag(current_usuario.email, { alt: current_usuario.email, class: 'user-image' }) %>
+                <span class="hidden-xs"><%= current_usuario.email %></span>
+              </a>
+              <ul class="dropdown-menu">
+                <!-- User image -->
+                <li class="user-header">
+                  <%= gravatar_image_tag(current_usuario.email, { alt: current_usuario.email, class: 'img-circle', :gravatar => { :size => 160 }})%>
+                  <p>
+                    <%= current_usuario.email %> - Miembro DDP
+                    <small>Defensor del pacto</small>
+                  </p>
+                </li>
+                <!-- Menu Footer-->
+                <li class="user-footer">
+                  <div class="pull-left">
+                    <a href="#" class="btn btn-default btn-flat">Perfil</a>
+                  </div>
+                  <div class="pull-right">
+                    <%= link_to 'Salir', destroy_usuario_session_path, { method: :delete, class: 'btn btn-default btn-flat' } %>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <!-- Left side column. contains the logo and sidebar -->
+    <aside class="main-sidebar">
+      <!-- sidebar: style can be found in sidebar.less -->
+      <section class="sidebar">
+        <!-- Sidebar user panel -->
+        <div class="user-panel">
+          <div class="pull-left image">
+            <%= gravatar_image_tag(current_usuario.email, { alt: current_usuario.email, class: 'img-circle' }) %>
+          </div>
+          <div class="pull-left info">
+            <p><%= current_usuario.email %></p>
+            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+          </div>
+        </div>
+        <!-- search form -->
+        <%= form_tag('/matrimonios', method: :get, class: 'sidebar-form') do -%>
+        <div class="input-group">
+          <input name="buscar" class="form-control" placeholder="Buscar matrimonio..." type="text">
+          <span class="input-group-btn">
+            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+            </button>
+          </span>
+        </div>
+        <% end -%>
+        <!-- /.search form -->
+        <!-- sidebar menu: : style can be found in sidebar.less -->
+        <ul class="sidebar-menu">
+          <li class="header">Menú</li>
+          <li class="active treeview">
+            <a href="#">
+              <i class="fa fa-dashboard"></i> <span>Inicio</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li>
+                <a href="/matrimonios">
+                  <i class="fa fa-book"></i>
+                  <span>Matrimonios</span>
+                  <span class="pull-right-container">
+                    <span class="label label-danger pull-right"><%= Matrimonio.sin_matrimonio%></span>
+                    <span class="label label-warning pull-right"><%= Matrimonio.solo_boda_civil%></span>
+                    <span class="label label-primary pull-right"><%= Matrimonio.boda_civl_y_eclesiastica%></span>
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a href="/actividades">
+                  <i class="fa fa-calendar"></i>
+                  <span>Actividades</span>
+                  <span class="pull-right-container">
+                    <span class="label label-primary pull-right"><%= Actividad.todas%></span>
+                  </span>
+                </a>
+              </li>
+              <li><a href="/usuarios"><i class="fa fa-user"></i> Usuarios</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#">
+              <i class="fa fa-cogs"></i> <span>Configuración</span>
+              <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+              </span>
+            </a>
+            <ul class="treeview-menu">
+              <li><a href="/parametros"><i class="fa fa-user"></i> Parámetros</a></li>
+            </ul>
+          </li>
+        </ul>
+      </section>
+      <!-- /.sidebar -->
+    </aside>
+
+    <!-- Content Wrapper. Contains page content -->
+    <div class="content-wrapper">
+      <!-- Content Header (Page header) -->
+      <%= yield %>
+      <!-- /.content -->
+    </div>
+    <!-- /.content-wrapper -->
+  </div>
+  <!-- ./wrapper -->
+  <script type="text/javascript">
+    $(document).ready(function($) {
+      <% if flash.count >0 %>
+      <% flash.each do |type, message| -%>
+      mostrarFlash('<%= type %>','<%= message.gsub(/['"\n]/, '\n') %>');
+      <% end %>
+      <% end %>
+    });
+  </script>
+</body>
+</html>

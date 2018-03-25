@@ -1,0 +1,2 @@
+module CirculoAmistadesHelper
+end

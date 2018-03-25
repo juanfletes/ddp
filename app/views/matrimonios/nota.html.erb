@@ -1,0 +1,10 @@
+<div class="direct-chat-msg">
+  <div class="direct-chat-info clearfix">
+    <span class="direct-chat-name pull-left"><%= @nota.usuario.nombre_completo %></span>
+    <span class="direct-chat-timestamp pull-right"><%= @nota.fecha %></span>
+  </div>
+  <%= gravatar_image_tag(@nota.usuario.email, { alt: @nota.usuario.email, class: 'direct-chat-img' }) %>
+  <div class="direct-chat-text">
+    <%= @nota.notas %>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  actividad: one
+  matrimonio: one
+  observacion: MyString
+
+two:
+  actividad: two
+  matrimonio: two
+  observacion: MyString

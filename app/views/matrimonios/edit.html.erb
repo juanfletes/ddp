@@ -1,0 +1,58 @@
+<section class="content-header">
+  <h1>
+    <span class="text-<%= case @matrimonio.estado_civil
+                               when 0
+                                'danger'
+                               when 1
+                                'warning'
+                               when 2
+                                'primary'
+                                end %>">
+    <%= @matrimonio.situacion %></span>
+    <small>Editar #<%=@matrimonio.id%></small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li><a href="/matrimonios"><i class="fa fa-book"></i> Matriminios</a></li>
+    <li class="active">Editar</li>
+  </ol>
+</section>
+
+<section class="content">
+  <div class="box">
+
+    <%= form_tag(('/matrimonios/'+@matrimonio.id.to_s), method: 'put', class: 'form-horizontal') do -%>
+
+    <div class="box-header with-border">
+      <div class="row">
+        <div class="col-xs-12 col-md-9">
+          <h5><strong>
+          <span class="text-<%= case @matrimonio.estado_civil
+                               when 0
+                                'danger'
+                               when 1
+                                'warning'
+                               when 2
+                                'primary'
+                                end %>"><%= @matrimonio.situacion %></span>
+          <%= @matrimonio.nombre %>
+          </strong>
+        </h5>
+        </div>
+        <div class="col-xs-4 col-md-1">
+          <%= link_to 'Regresar', @matrimonio , class: "btn btn-default btn-block"%>
+        </div>
+        <div class="col-xs-4 col-md-1">
+          <%= submit_tag 'Guardar', class: "btn btn-primary btn-block" %>
+        </div>
+        <div class="col-xs-4 col-md-1">
+          <%= link_to 'Nuevo', new_matrimonio_path, { class: 'btn btn-primary btn-block'} %>
+        </div>
+      </div>
+    </div>
+    <div class="box-body">
+      <%= render 'form', matrimonio: @matrimonio %>
+    </div>
+  </div>
+  <% end -%>
+</section>
