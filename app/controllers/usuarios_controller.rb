@@ -1,5 +1,6 @@
 class UsuariosController < ApplicationController
-  before_action :set_usuario, only: [:show, :edit, :update, :destroy]
+  before_action :set_usuario, only: [:show, :edit, :update, :destroy, :asignaciones_seguimiento]
+  before_action :lista_personas, only: [:show, :edit, :new]
 
   # GET /usuarios
   # GET /usuarios.json
@@ -14,6 +15,96 @@ class UsuariosController < ApplicationController
 
   # GET /usuarios/1/edit
   def edit
+  end
+
+  def asignaciones_seguimiento
+    @personas = if params[:buscar].blank?
+                  Persona.joins(:asignado_a).where(asignado_a: { usuario_id: @usuario.id })
+                else
+                  Persona.por_nombre(params[:buscar])
+                end
+
+    render 'personas', layout: false
+  end
+
+  def agregar_seguimiento
+    result = true
+    mensaje = ''
+    begin
+      ActiveRecord::Base.transaction do
+        usuario = Usuario.find(params[:usuaro_id])
+        persona = Persona.find(params[:persona_id])
+        usuario_persona = usuario.persona
+        persona_matrimonio = persona.obtener_matrimonio
+
+        asignacion_usuario_actual = AsignacionSeguimiento.new
+        asignacion_usuario_actual.usuaro_id = usuario.id
+        asignacion_usuario_actual.persona_id = if persona.tiene_matrimonio?
+                                                 usuario.sexo == 'M' ? persona_matrimonio.esposo_id : persona_matrimonio.esposa_id
+                                               else
+                                                 persona.id
+                                               end
+        raise Util::Mensaje.mensajes_error_modelo(asignacion_usuario_actual.errors) unless asignacion_usuario_actual.save
+
+        if !usuario_persona.blank? && usuario_persona.tiene_matrimonio?
+          usuario_matrimonio = usuario_persona.obtener_matrimonio
+          usuario_masculino = Usuario.where(persona_id: usuario_matrimonio.esposo_id)
+          usuario_femenino = Usuario.where(persona_id: usuario_matrimonio.esposa_id)
+          usuario_conyuge = usuario.id = usuario_matrimonio.esposo_id ? usuario_femenino : usuario_masculino
+
+          asignacion_usuario_conyuge = AsignacionSeguimiento.new
+          asignacion_usuario_conyuge.usuaro_id = usuario_conyuge.id
+          asignacion_usuario_conyuge.persona_id = if persona.tiene_matrimonio?
+                                                    usuario_conyuge.sexo == 'M' ? persona_matrimonio.esposo_id : persona_matrimonio.esposa_id
+                                                  else
+                                                    persona.id
+                                                  end
+          raise Util::Mensaje.mensajes_error_modelo(asignacion_usuario_conyuge.errors) unless asignacion_usuario_conyuge.save
+        end
+        mensaje = 'Agregardo Correctamente'
+      end
+    rescue StandardError => e
+      result = false
+      mensaje = Util::Mensaje.limpiar_mensaje(e.message)
+    ensure
+      render json: { result: result,
+                     mensaje: mensaje,
+                     cantidad_personas: usuario.cantidad_personas_asignadas }
+    end
+  end
+
+  def quitar_seguimiento
+    result = true
+    mensaje = ''
+    begin
+      ActiveRecord::Base.transaction do
+        usuario = Usuario.find(params[:usuaro_id])
+        persona = Persona.find(params[:persona_id])
+        usuario_persona = usuario.persona
+        persona_matrimonio = persona.obtener_matrimonio
+
+        asignacion_usuario_actual = AsignacionSeguimiento.where(usuario_id: usuario.id, persona_id: persona.id).first
+        raise Util::Mensaje.mensajes_error_modelo(asignacion_usuario_actual.errors) unless asignacion_usuario_actual.destroy
+
+        if !usuario_persona.blank? && usuario_persona.tiene_matrimonio? && persona.tiene_matrimonio?
+          usuario_matrimonio = usuario_persona.obtener_matrimonio
+          usuario_masculino = Usuario.where(persona_id: usuario_matrimonio.esposo_id)
+          usuario_femenino = Usuario.where(persona_id: usuario_matrimonio.esposa_id)
+          usuario_conyuge = usuario.id = usuario_matrimonio.esposo_id ? usuario_femenino : usuario_masculino
+          persona_conyuge_id = usuario_conyuge.sexo == 'M' ? persona_matrimonio.esposo_id : persona_matrimonio.esposa_id
+          asignacion_usuario_conyuge = AsignacionSeguimiento.where(usuario_id: usuario_conyuge.id, persona_id: persona_conyuge_id).first
+          raise Util::Mensaje.mensajes_error_modelo(asignacion_usuario_conyuge.errors) unless asignacion_usuario_conyuge.destroy
+        end
+        mensaje = 'Agregardo Correctamente'
+      end
+    rescue StandardError => e
+      result = false
+      mensaje = Util::Mensaje.limpiar_mensaje(e.message)
+    ensure
+      render json: { result: result,
+                     mensaje: mensaje,
+                     cantidad_personas: usuario.cantidad_personas_asignadas }
+    end
   end
 
   # POST /usuarios
@@ -77,19 +168,25 @@ class UsuariosController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_usuario
-      @usuario = Usuario.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def usuario_params_create
-      params.require(:usuario).permit(:email, :primer_nombre, :segundo_nombre,
-                                      :primer_apellido, :segundo_apellido, :password, :persona_id)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_usuario
+    @usuario = Usuario.find(params[:id])
+  end
 
-    def usuario_params_update
-      params.require(:usuario).permit(:email, :primer_nombre, :segundo_nombre, :primer_apellido, :segundo_apellido,
-                                      :persona_id)
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def usuario_params_create
+    params.require(:usuario).permit(:email, :primer_nombre, :segundo_nombre,
+                                    :primer_apellido, :segundo_apellido, :password, :persona_id)
+  end
+
+  def usuario_params_update
+    params.require(:usuario).permit(:email, :primer_nombre, :segundo_nombre, :primer_apellido, :segundo_apellido,
+                                    :persona_id)
+  end
+
+  def lista_personas
+    @personas = Persona.order(:primer_nombre, :primer_apellido)
+  end
+
 end

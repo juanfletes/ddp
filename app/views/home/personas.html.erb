@@ -1,0 +1,33 @@
+<% @personas.each_with_index do |p, index| %>
+
+<div id="fila-<%= p.id %>" class="row row-coustom <%= 'row-coustom-background' if index.even? %>" >
+
+  <div class="col-xs-12 col-md-3">
+      <a href="/matrimonios/<%= p.obtener_matrimonio.id %>">
+        <%= p.nombre_completo %> <%= '|' unless p.telefono.blank? %> <%= p.telefono %></li>
+      </a>
+  </div>
+
+
+  <div class="col-xs-6 col-md-1">
+    <span data-toggle="tooltip" data-placement="bottom" title="Notas de seguimiento" ><%= p.notas_seguimiento.count %></span>
+      |
+    <span data-toggle="tooltip" data-placement="bottom" title="Fecha última nota" ><%= p.notas_seguimiento.last.try(:fecha) %></span>
+  </div>
+
+  <div class="col-xs-10 col-md-2">
+    <% if p.seguimiento %>
+    <button class="btn btn-sm btn-primary">
+      <i class="fa fa-plus"></i>
+      Seguimiento
+    </button>
+    <% end %>
+  </div>
+
+</div>
+<% end %>
+<script type="text/javascript">
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip();
+});
+</script>

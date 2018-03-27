@@ -119,4 +119,16 @@ class Persona < ApplicationRecord
     notas_seguimiento.any?
   end
 
+  def esta_asignado_al_usuario?(usuario)
+    asignado_a.where(usuario_id: usuario.id).any?
+  end
+
+  def tiene_matrimonio?
+    matrimonio_esposo.any? || matrimonio_esposa.any?
+  end
+
+  def obtener_matrimonio
+    try(:matrimonio_esposo) || try(:matrimonio_esposa)
+  end
+
 end

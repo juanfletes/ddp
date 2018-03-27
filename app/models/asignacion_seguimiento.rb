@@ -10,6 +10,8 @@ class AsignacionSeguimiento < ApplicationRecord
 
   validates :persona_id, uniqueness: true, presence: true
 
+  before_save :validar_sexo
+
   # ------------------------------------------------------------------------------------------------
   # Relaciones
   # ------------------------------------------------------------------------------------------------
@@ -17,4 +19,8 @@ class AsignacionSeguimiento < ApplicationRecord
   belongs_to :persona
   belongs_to :usuario
 
-end
+  def validar_sexo
+    return true if persona.sexo == usuario.sexo
+    errors.add(:base, 'El sexo de la persona a dar seguimiento debe de ser igual al sexo del usuario')
+    throw :abort
+  end

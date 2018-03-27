@@ -1,0 +1,24 @@
+<% @personas.each_with_index do |p, index| %>
+<div class="row" style="border-bottom: dotted 1px #999; padding-bottom: 5px">
+  <div class="col-xs-2 col-md-2">
+    <strong>
+      <%= index %>
+    </strong>
+  </div>
+  <div class="col-xs-9 col-md-9">
+    <strong>
+      <%= p.nombre_completo %>
+    </strong>
+  </div>
+  <div class="col-xs-1 col-md-1">
+    <% if p.esta_asignado_al_usuario?(@usuario) %>
+      <button id="btn_<%= p.id %>" onclick="quitar_seguimiento(<%= p.id %>);" class="btn btn-danger btn-sm">Quitar</button>
+    <% else %>
+      <button id="btn_<%= p.id %>" onclick="agregar_seguimiento(<%= p.id %>);" class="btn btn-primary btn-sm">Agregar</button>
+    <% end %>
+  </div>
+</div>
+<% end %>
+<script>
+  $('#cantidad_personas').html(<%= @usuario.cantidad_personas_asignadas %>);
+</script>

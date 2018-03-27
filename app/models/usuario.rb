@@ -106,4 +106,8 @@ class Usuario < ApplicationRecord
                             .any?
   end
 
+  def cantidad_personas_asignadas
+    asignaciones_seguimiento.count
+  end
+
 end

@@ -3,13 +3,15 @@ Rails.application.routes.draw do
 
   root to: 'home#index'
 
-  namespace :usuarios do
-    post 'actualizar_clave'
+  namespace :home do
+    get 'lista'
   end
 
-  resources :usuarios
-
-  resources :parametros
+  namespace :usuarios do
+    post 'actualizar_clave'
+    post 'agregar_seguimiento'
+    post 'quitar_seguimiento'
+  end
 
   namespace :matrimonios do
     get 'lista'
@@ -18,16 +20,14 @@ Rails.application.routes.draw do
     get 'obtener_nota'
   end
 
-  resources :matrimonios
-
-
   namespace :actividades do
     get 'matrimonios'
     post 'agregar_quitar_participante'
   end
 
+  resources :usuarios
+  resources :parametros
+  resources :matrimonios
   resources :actividades
-
   resources :circulo_amistades
-
 end

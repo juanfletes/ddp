@@ -82,23 +82,96 @@
 
   <!-- Asignaciones -->
   <div class="box box-primary">
-
-  <div class="box-header with-border">
-    <h3 class="box-title">Asignaciones para dar seguimiento</h3>
-    <div class="box-tools pull-right">
-      <span data-toggle="tooltip" title="3 New Messages" class="badge bg-blue">??</span>
-      <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+    <div class="box-header">
+      <div class="row">
+        <div class="col-xs-12 col-md-10">
+          <div class="input-group input-group-xs" >
+            <input id="txt-buscar" name="buscar" class="form-control pull-right" placeholder="Buscar..." type="text">
+            <div class="input-group-btn">
+              <button id="btn-buscar" class="btn btn-default">
+                <i class="fa fa-search"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-xs-12 col-md-2">
+          <span id="cantidad_personas", class="badge bg-blue"></span>
+        </div>
+      </div>
     </div>
-  </div>
-
     <div class="box-body">
-
+      <div id="registros"></div>
     </div>
   </div>
   <!-- /Asignaciones -->
-
 
     </div>
   </div>
 
 </section>
+<script type="text/javascript">
+
+  $(document).ready(function() {
+    buscar_persona();
+  });
+
+  function buscar_persona(buscar){
+    $.get('/usuarios/asignaciones_seguimiento', { buscar: buscar, usuaro_id: <%= @usuario.id %> },
+      function(data){
+        $('#cantidad_personas').html('0');
+        $('#registros').empty();
+        $('#registros').append(data);
+      }
+    );
+  }
+
+  function agregar_seguimiento(persona_id){
+    $.post('/usuario/agregar_seguimiento', { persona_id: persona_id,
+                                                    usuario_id: <%= @usuario.id %> },
+      function(data){
+        if(data.result){
+          if($('#btn_'+ persona_id).hasClass('btn-danger')){
+            $('#btn_'+ persona_id).addClass('btn-primary').removeClass('btn-danger').html('Agregar');
+          }else{
+            $('#btn_'+ persona_id).addClass('btn-danger').removeClass('btn-primary').html('Quitar');
+          }
+          $('#cantidad_personas').html(data.cantidad_personas);
+          mostrarMensaje('Éxito', data.mensaje, 'success');
+        }else{
+          mostrarMensaje('Error', data.mensaje, 'error');
+        }
+      }
+    );
+  }
+
+  function quitar_seguimiento(persona_id){
+    $.post('/usuario/quitar_seguimiento', { persona_id: persona_id,
+                                                    usuario_id: <%= @usuario.id %> },
+      function(data){
+        if(data.result){
+          if($('#btn_'+ persona_id).hasClass('btn-danger')){
+            $('#btn_'+ persona_id).addClass('btn-primary').removeClass('btn-danger').html('Agregar');
+          }else{
+            $('#btn_'+ persona_id).addClass('btn-danger').removeClass('btn-primary').html('Quitar');
+          }
+          $('#cantidad_personas').html(data.cantidad_personas);
+          mostrarMensaje('Éxito', data.mensaje, 'success');
+        }else{
+          mostrarMensaje('Error', data.mensaje, 'error');
+        }
+      }
+    );
+  }
+
+  $("#btn-buscar").click(function(){
+    buscar_persona($('#txt-buscar').val());
+  });
+
+  $("#txt-buscar").keypress(function(e) {
+    var keycode = (e.keyCode ? e.keyCode : e.which);
+    if (keycode == '13') {
+        buscar_persona($('#txt-buscar').val());
+    }
+  });
+
+</script>
