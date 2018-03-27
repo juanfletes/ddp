@@ -25,9 +25,17 @@ Rails.application.routes.draw do
     post 'agregar_quitar_participante'
   end
 
+  namespace :personas do
+    get 'lista'
+    post 'destroy'
+    post 'guardar_seguimiento'
+    get 'obtener_nota'
+  end
+
   resources :usuarios
   resources :parametros
   resources :matrimonios
   resources :actividades
   resources :circulo_amistades
+  resources :personas
 end

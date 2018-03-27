@@ -1,0 +1,92 @@
+<%= form_with(model: persona, local: true) do |form| %>
+  <% if persona.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(persona.errors.count, "error") %> prohibited this persona from being saved:</h2>
+
+      <ul>
+      <% persona.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :primer_nombre %>
+    <%= form.text_field :primer_nombre, id: :persona_primer_nombre %>
+  </div>
+
+  <div class="field">
+    <%= form.label :segundo_nombre %>
+    <%= form.text_field :segundo_nombre, id: :persona_segundo_nombre %>
+  </div>
+
+  <div class="field">
+    <%= form.label :primer_apellido %>
+    <%= form.text_field :primer_apellido, id: :persona_primer_apellido %>
+  </div>
+
+  <div class="field">
+    <%= form.label :segundo_apellido %>
+    <%= form.text_field :segundo_apellido, id: :persona_segundo_apellido %>
+  </div>
+
+  <div class="field">
+    <%= form.label :sexo %>
+    <%= form.text_field :sexo, id: :persona_sexo %>
+  </div>
+
+  <div class="field">
+    <%= form.label :fecha_nacimiento %>
+    <%= form.date_select :fecha_nacimiento, id: :persona_fecha_nacimiento %>
+  </div>
+
+  <div class="field">
+    <%= form.label :direccion %>
+    <%= form.text_field :direccion, id: :persona_direccion %>
+  </div>
+
+  <div class="field">
+    <%= form.label :bautizado %>
+    <%= form.check_box :bautizado, id: :persona_bautizado %>
+  </div>
+
+  <div class="field">
+    <%= form.label :epp %>
+    <%= form.check_box :epp, id: :persona_epp %>
+  </div>
+
+  <div class="field">
+    <%= form.label :edl %>
+    <%= form.check_box :edl, id: :persona_edl %>
+  </div>
+
+  <div class="field">
+    <%= form.label :observacion %>
+    <%= form.text_field :observacion, id: :persona_observacion %>
+  </div>
+
+  <div class="field">
+    <%= form.label :telefono %>
+    <%= form.text_field :telefono, id: :persona_telefono %>
+  </div>
+
+  <div class="field">
+    <%= form.label :celular %>
+    <%= form.text_field :celular, id: :persona_celular %>
+  </div>
+
+  <div class="field">
+    <%= form.label :email %>
+    <%= form.text_field :email, id: :persona_email %>
+  </div>
+
+  <div class="field">
+    <%= form.label :seguimiento %>
+    <%= form.check_box :seguimiento, id: :persona_seguimiento %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

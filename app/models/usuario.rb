@@ -106,6 +106,10 @@ class Usuario < ApplicationRecord
                             .any?
   end
 
+  def es_persona_asignada?(persona)
+    asignaciones_seguimiento.where(persona_id: persona.id, usuario_id: id).any?
+  end
+
   def cantidad_personas_asignadas
     asignaciones_seguimiento.count
   end
