@@ -17,7 +17,7 @@
 
   <div class="col-xs-10 col-md-2">
     <% if p.seguimiento %>
-    <button class="btn btn-sm btn-primary">
+    <button class="btn btn-sm btn-primary" onclick="registrar_seguimiento(<%= p.obtener_matrimonio.id %>)">
       <i class="fa fa-plus"></i>
       Seguimiento
     </button>
@@ -30,4 +30,9 @@
 $(function () {
   $('[data-toggle="tooltip"]').tooltip();
 });
+
+function registrar_seguimiento(matrimonio_id){
+  window.location = '/matrimonios/' + matrimonio_id;
+}
+
 </script>
