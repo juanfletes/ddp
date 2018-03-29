@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   end
 
   namespace :usuarios do
+    get 'asignaciones_seguimiento'
     post 'actualizar_clave'
     post 'agregar_seguimiento'
     post 'quitar_seguimiento'
@@ -17,6 +18,7 @@ Rails.application.routes.draw do
     get 'lista'
     post 'destroy'
     post 'guardar_seguimiento'
+    post 'eliminar_seguimiento'
     get 'obtener_nota'
   end
 

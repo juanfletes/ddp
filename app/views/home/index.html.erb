@@ -10,61 +10,59 @@
 <div class="row">
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-aqua">
+          <div class="small-box bg-<%= if @porcentaje < 50
+                                            'red'
+                                       elsif @porcentaje >= 50 and @porcentaje < 80
+                                        'yellow'
+                                       elsif @porcentaje >= 80
+                                        'green'
+                                end %>">
             <div class="inner">
-              <h3>150</h3>
-
-              <p>New Orders</p>
+              <h3><%= @porcentaje %>%</h3>
+              <p>Porcentaje de cumplimiento</p>
             </div>
             <div class="icon">
               <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-green">
+          <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-              <p>Bounce Rate</p>
+              <h3><%= @personas_asignadas %></h3>
+              <p>Personas Asignadas</p>
             </div>
             <div class="icon">
-              <i class="ion ion-stats-bars"></i>
+              <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-yellow">
+          <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>44</h3>
-
-              <p>User Registrations</p>
+              <h3><%= @personas_con_seguimiento %></h3>
+              <p>Personas con seguimiento</p>
             </div>
             <div class="icon">
-              <i class="ion ion-person-add"></i>
+              <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
-          <div class="small-box bg-red">
+          <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>65</h3>
-
-              <p>Unique Visitors</p>
+              <h3><%= @personas_sin_seguimiento %></h3>
+              <p>Pendientes (<%= @dias_atras_seguimiento.valor %> días hacia atrás)</p>
             </div>
             <div class="icon">
-              <i class="ion ion-pie-graph"></i>
+              <i class="ion ion-bag"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
         <!-- ./col -->
@@ -115,11 +113,6 @@
     }
   });
 
-  <% unless @buscar.blank? %>
-  $(document).ready(function() {
-    $("#txt-buscar").val('<%= @buscar %>');
-    buscar_matrimonios('<%= @buscar %>');
-  });
-  <% end %>
+  buscar('');
 
 </script>

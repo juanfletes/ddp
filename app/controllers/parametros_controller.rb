@@ -1,5 +1,6 @@
 class ParametrosController < ApplicationController
   before_action :set_parametro, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /parametros
   # GET /parametros.json
@@ -28,7 +29,7 @@ class ParametrosController < ApplicationController
 
     respond_to do |format|
       if @parametro.save
-        format.html { redirect_to @parametro, notice: 'Parametro was successfully created.' }
+        format.html { redirect_to @parametro, notice: 'Creado correctamente' }
         format.json { render :show, status: :created, location: @parametro }
       else
         format.html { render :new }
@@ -42,7 +43,7 @@ class ParametrosController < ApplicationController
   def update
     respond_to do |format|
       if @parametro.update(parametro_params)
-        format.html { redirect_to @parametro, notice: 'Parametro was successfully updated.' }
+        format.html { redirect_to @parametro, notice: 'Actualizado correctamente.' }
         format.json { render :show, status: :ok, location: @parametro }
       else
         format.html { render :edit }
@@ -56,7 +57,7 @@ class ParametrosController < ApplicationController
   def destroy
     @parametro.destroy
     respond_to do |format|
-      format.html { redirect_to parametros_url, notice: 'Parametro was successfully destroyed.' }
+      format.html { redirect_to parametros_url, notice: 'Eliminado correctamente.' }
       format.json { head :no_content }
     end
   end

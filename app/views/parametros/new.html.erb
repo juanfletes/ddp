@@ -1,5 +1,14 @@
-<h1>New Parametro</h1>
-
-<%= render 'form', parametro: @parametro %>
-
-<%= link_to 'Back', parametros_path %>
+<section class="content-header">
+  <h1>
+    Parámetro
+    <small>Nuevo</small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li><a href="/parametros"><i class="fa fa-book"></i> Parámetros</a></li>
+    <li class="active">nuevo</li>
+  </ol>
+</section>
+<section class="content">
+  <%= render 'form', parametro: @parametro %>
+</section>

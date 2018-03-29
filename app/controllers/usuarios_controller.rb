@@ -1,6 +1,7 @@
 class UsuariosController < ApplicationController
-  before_action :set_usuario, only: [:show, :edit, :update, :destroy, :asignaciones_seguimiento]
+  before_action :set_usuario, only: [:show, :edit, :update, :destroy]
   before_action :lista_personas, only: [:show, :edit, :new]
+  load_and_authorize_resource
 
   # GET /usuarios
   # GET /usuarios.json
@@ -18,8 +19,9 @@ class UsuariosController < ApplicationController
   end
 
   def asignaciones_seguimiento
+    @usuario = Usuario.find(params[:usuario_id])
     @personas = if params[:buscar].blank?
-                  Persona.joins(:asignado_a).where(asignado_a: { usuario_id: @usuario.id })
+                  Persona.joins(:asignado_a).where(asignaciones_seguimiento: { usuario_id: @usuario.id })
                 else
                   Persona.por_nombre(params[:buscar])
                 end
@@ -30,15 +32,15 @@ class UsuariosController < ApplicationController
   def agregar_seguimiento
     result = true
     mensaje = ''
+    usuario = Usuario.find(params[:usuario_id])
     begin
       ActiveRecord::Base.transaction do
-        usuario = Usuario.find(params[:usuaro_id])
         persona = Persona.find(params[:persona_id])
         usuario_persona = usuario.persona
         persona_matrimonio = persona.obtener_matrimonio
 
         asignacion_usuario_actual = AsignacionSeguimiento.new
-        asignacion_usuario_actual.usuaro_id = usuario.id
+        asignacion_usuario_actual.usuario_id = usuario.id
         asignacion_usuario_actual.persona_id = if persona.tiene_matrimonio?
                                                  usuario.sexo == 'M' ? persona_matrimonio.esposo_id : persona_matrimonio.esposa_id
                                                else
@@ -46,20 +48,17 @@ class UsuariosController < ApplicationController
                                                end
         raise Util::Mensaje.mensajes_error_modelo(asignacion_usuario_actual.errors) unless asignacion_usuario_actual.save
 
-        if !usuario_persona.blank? && usuario_persona.tiene_matrimonio?
+        if usuario_persona.present? && usuario_persona.tiene_matrimonio? && persona.tiene_matrimonio?
           usuario_matrimonio = usuario_persona.obtener_matrimonio
-          usuario_masculino = Usuario.where(persona_id: usuario_matrimonio.esposo_id)
-          usuario_femenino = Usuario.where(persona_id: usuario_matrimonio.esposa_id)
+          usuario_masculino = Usuario.where(persona_id: usuario_matrimonio.esposo_id).first
+          usuario_femenino = Usuario.where(persona_id: usuario_matrimonio.esposa_id).first
           usuario_conyuge = usuario.id = usuario_matrimonio.esposo_id ? usuario_femenino : usuario_masculino
-
-          asignacion_usuario_conyuge = AsignacionSeguimiento.new
-          asignacion_usuario_conyuge.usuaro_id = usuario_conyuge.id
-          asignacion_usuario_conyuge.persona_id = if persona.tiene_matrimonio?
-                                                    usuario_conyuge.sexo == 'M' ? persona_matrimonio.esposo_id : persona_matrimonio.esposa_id
-                                                  else
-                                                    persona.id
-                                                  end
-          raise Util::Mensaje.mensajes_error_modelo(asignacion_usuario_conyuge.errors) unless asignacion_usuario_conyuge.save
+          if usuario_conyuge.present?
+            asignacion_usuario_conyuge = AsignacionSeguimiento.new
+            asignacion_usuario_conyuge.usuario_id = usuario_conyuge.id
+            asignacion_usuario_conyuge.persona_id = usuario_conyuge.sexo == 'M' ? persona_matrimonio.esposo_id : persona_matrimonio.esposa_id
+            raise Util::Mensaje.mensajes_error_modelo(asignacion_usuario_conyuge.errors) unless asignacion_usuario_conyuge.save
+          end
         end
         mensaje = 'Agregardo Correctamente'
       end
@@ -76,9 +75,9 @@ class UsuariosController < ApplicationController
   def quitar_seguimiento
     result = true
     mensaje = ''
+    usuario = Usuario.find(params[:usuario_id])
     begin
       ActiveRecord::Base.transaction do
-        usuario = Usuario.find(params[:usuaro_id])
         persona = Persona.find(params[:persona_id])
         usuario_persona = usuario.persona
         persona_matrimonio = persona.obtener_matrimonio
@@ -88,14 +87,16 @@ class UsuariosController < ApplicationController
 
         if !usuario_persona.blank? && usuario_persona.tiene_matrimonio? && persona.tiene_matrimonio?
           usuario_matrimonio = usuario_persona.obtener_matrimonio
-          usuario_masculino = Usuario.where(persona_id: usuario_matrimonio.esposo_id)
-          usuario_femenino = Usuario.where(persona_id: usuario_matrimonio.esposa_id)
+          usuario_masculino = Usuario.where(persona_id: usuario_matrimonio.esposo_id).first
+          usuario_femenino = Usuario.where(persona_id: usuario_matrimonio.esposa_id).first
           usuario_conyuge = usuario.id = usuario_matrimonio.esposo_id ? usuario_femenino : usuario_masculino
           persona_conyuge_id = usuario_conyuge.sexo == 'M' ? persona_matrimonio.esposo_id : persona_matrimonio.esposa_id
           asignacion_usuario_conyuge = AsignacionSeguimiento.where(usuario_id: usuario_conyuge.id, persona_id: persona_conyuge_id).first
-          raise Util::Mensaje.mensajes_error_modelo(asignacion_usuario_conyuge.errors) unless asignacion_usuario_conyuge.destroy
+          if asignacion_usuario_conyuge.present?
+            raise Util::Mensaje.mensajes_error_modelo(asignacion_usuario_conyuge.errors) unless asignacion_usuario_conyuge.destroy
+          end
         end
-        mensaje = 'Agregardo Correctamente'
+        mensaje = 'Eliminado Correctamente'
       end
     rescue StandardError => e
       result = false

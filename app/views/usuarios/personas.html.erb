@@ -1,11 +1,11 @@
 <% @personas.each_with_index do |p, index| %>
 <div class="row" style="border-bottom: dotted 1px #999; padding-bottom: 5px">
-  <div class="col-xs-2 col-md-2">
+  <div class="col-xs-1 col-md-1">
     <strong>
-      <%= index %>
+      <%= index + 1 %>
     </strong>
   </div>
-  <div class="col-xs-9 col-md-9">
+  <div class="col-xs-10 col-md-10">
     <strong>
       <%= p.nombre_completo %>
     </strong>

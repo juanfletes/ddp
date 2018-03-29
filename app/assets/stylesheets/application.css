@@ -15,7 +15,7 @@
  *= require pnotify/index
  *= require font-awesome
  *= require theme
- *= require theme-skin-blue-light
+ *= require theme-skin-blue
  *= require daterangepicker
  */
 :required:focus {

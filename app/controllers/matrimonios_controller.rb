@@ -2,6 +2,7 @@
 
 class MatrimoniosController < ApplicationController
   before_action :set_matrimonio, only: [:show, :edit, :update, :destroy]
+  load_and_authorize_resource
 
   # GET /matrimonios
   # GET /matrimonios.json
@@ -37,9 +38,23 @@ class MatrimoniosController < ApplicationController
       id = nota.id
     rescue StandardError => e
       result = false
-      mensaje = 'Error al eliminar: ' + Util::Mensaje.limpiar_mensaje(e.message)
+      mensaje = 'Error al guardar: ' + Util::Mensaje.limpiar_mensaje(e.message)
     ensure
       render json: { result: result, mensaje: mensaje, id: id }
+    end
+  end
+
+  def eliminar_seguimiento
+    begin
+      result = true
+      mensaje = 'Eliminado correctamente'
+      nota = PersonaNotaSeguimiento.find(params[:id])
+      raise Util::Mensaje.mensajes_error_modelo(nota.errors) unless nota.destroy
+    rescue StandardError => e
+      result = false
+      mensaje = 'Error al eliminar: ' + Util::Mensaje.limpiar_mensaje(e.message)
+    ensure
+      render json: { result: result, mensaje: mensaje, id: params[:id] }
     end
   end
 

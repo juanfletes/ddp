@@ -116,7 +116,7 @@
   });
 
   function buscar_persona(buscar){
-    $.get('/usuarios/asignaciones_seguimiento', { buscar: buscar, usuaro_id: <%= @usuario.id %> },
+    $.get('/usuarios/asignaciones_seguimiento', { buscar: buscar, usuario_id: <%= @usuario.id %> },
       function(data){
         $('#cantidad_personas').html('0');
         $('#registros').empty();
@@ -126,7 +126,7 @@
   }
 
   function agregar_seguimiento(persona_id){
-    $.post('/usuario/agregar_seguimiento', { persona_id: persona_id,
+    $.post('/usuarios/agregar_seguimiento', { persona_id: persona_id,
                                                     usuario_id: <%= @usuario.id %> },
       function(data){
         if(data.result){
@@ -137,6 +137,7 @@
           }
           $('#cantidad_personas').html(data.cantidad_personas);
           mostrarMensaje('Éxito', data.mensaje, 'success');
+          buscar_persona($('#txt-buscar').val());
         }else{
           mostrarMensaje('Error', data.mensaje, 'error');
         }
@@ -145,7 +146,7 @@
   }
 
   function quitar_seguimiento(persona_id){
-    $.post('/usuario/quitar_seguimiento', { persona_id: persona_id,
+    $.post('/usuarios/quitar_seguimiento', { persona_id: persona_id,
                                                     usuario_id: <%= @usuario.id %> },
       function(data){
         if(data.result){
@@ -156,6 +157,7 @@
           }
           $('#cantidad_personas').html(data.cantidad_personas);
           mostrarMensaje('Éxito', data.mensaje, 'success');
+          buscar_persona($('#txt-buscar').val());
         }else{
           mostrarMensaje('Error', data.mensaje, 'error');
         }

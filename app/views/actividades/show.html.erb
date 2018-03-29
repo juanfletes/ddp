@@ -37,7 +37,9 @@
                 <%= link_to 'Regresar', actividades_path , class: "btn btn-default btn-block"%>
               </div>
               <div class="col-xs-6 col-md-1">
+                <% if can? :update, @actividad %>
                 <%= link_to 'Editar', edit_actividad_path(@actividad), class: "btn btn-primary btn-block" %>
+                <% end %>
               </div>
             </div>
           </div>
@@ -100,7 +102,9 @@
                 </div>
               </div>
               <div class="col-xs-12 col-md-2">
+                <% if can? :create, IntegranteActividad %>
                 <%= link_to 'Nuevo', new_matrimonio_path, { target: '_blank', class: 'btn btn-primary btn-block'} %>
+                <% end %>
               </div>
             </div>
           </div>

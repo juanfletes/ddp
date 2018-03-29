@@ -1,19 +1,56 @@
-<p id="notice"><%= notice %></p>
+<section class="content-header">
+  <h1>
+    Parámetro
+    <small>Ver #<%=@parametro.id%></small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li><a href="/parametros"><i class="fa fa-book"></i> Parámetros</a></li>
+    <li class="active">ver</li>
+  </ol>
+</section>
+<section class="content">
 
-<p>
-  <strong>Codigo:</strong>
-  <%= @parametro.codigo %>
-</p>
+<div class="box box-primary">
+    <div class="box-header with-border">
+      <div class="row">
+        <div class="col-xs-12 col-md-11">
+        </div>
+        <div class="col-xs-12 col-md-1">
+          <%= link_to 'Regresar', parametros_path, class: 'btn btn-default btn-block' %>
+        </div>
+      </div>
+    </div>
 
-<p>
-  <strong>Nombre:</strong>
-  <%= @parametro.nombre %>
-</p>
+  <div class="box-body">
+    <div class="row">
+      <div class="col-xs-2">
+        <strong>Código:</strong>
+      </div>
+      <div class="col-xs-10">
+        <%= @parametro.codigo %>
+      </div>
+    </div>
 
-<p>
-  <strong>Valor:</strong>
-  <%= @parametro.valor %>
-</p>
+    <div class="row">
+      <div class="col-xs-2">
+        <strong>Nombre:</strong>
+      </div>
+      <div class="col-xs-10">
+        <%= @parametro.nombre %>
+      </div>
+    </div>
 
-<%= link_to 'Edit', edit_parametro_path(@parametro) %> |
-<%= link_to 'Back', parametros_path %>
+    <div class="row">
+      <div class="col-xs-2">
+        <strong>Valor:</strong>
+      </div>
+      <div class="col-xs-10">
+        <%= @parametro.valor %>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</section>

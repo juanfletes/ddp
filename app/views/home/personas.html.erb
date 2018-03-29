@@ -1,23 +1,33 @@
 <% @personas.each_with_index do |p, index| %>
 
-<div id="fila-<%= p.id %>" class="row row-coustom <%= 'row-coustom-background' if index.even? %>" >
+<div id="fila-<%= p.id %>" class="row row-coustom <%= 'bg-danger' unless p.con_nota_seguimiento_dentro_del_periodo(current_usuario) %>" >
 
-  <div class="col-xs-12 col-md-3">
-      <a href="/matrimonios/<%= p.obtener_matrimonio.id %>">
+  <div class="col-xs-1 col-md-1">
+    <strong>
+      <%= index + 1 %>
+    </strong>
+  </div>
+
+  <div class="col-xs-11 col-md-8">
+      <a href="/matrimonios/<%= p.obtener_matrimonio.try(:id) %>">
         <%= p.nombre_completo %> <%= '|' unless p.telefono.blank? %> <%= p.telefono %></li>
       </a>
   </div>
 
-
-  <div class="col-xs-6 col-md-1">
+  <div class="col-xs-12 col-md-1">
     <span data-toggle="tooltip" data-placement="bottom" title="Notas de seguimiento" ><%= p.notas_seguimiento.count %></span>
       |
     <span data-toggle="tooltip" data-placement="bottom" title="Fecha última nota" ><%= p.notas_seguimiento.last.try(:fecha) %></span>
   </div>
+  <div class="col-xs-6 col-md-1">
+    <% unless p.telefono.blank? %>
+    <a href="tel:<%= p.telefono %>" class="btn btn-sm btn-success btn-block">Llamar</a>
+    <% end %>
+  </div>
 
-  <div class="col-xs-10 col-md-2">
+  <div class="col-xs-6 col-md-1">
     <% if p.seguimiento %>
-    <button class="btn btn-sm btn-primary" onclick="registrar_seguimiento(<%= p.obtener_matrimonio.id %>)">
+    <button class="btn btn-sm btn-primary btn-block" onclick="registrar_seguimiento(<%= p.obtener_matrimonio.try(:id) %>, '<%= p.sexo %>')">
       <i class="fa fa-plus"></i>
       Seguimiento
     </button>
@@ -27,12 +37,8 @@
 </div>
 <% end %>
 <script type="text/javascript">
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip();
-});
-
-function registrar_seguimiento(matrimonio_id){
-  window.location = '/matrimonios/' + matrimonio_id;
+function registrar_seguimiento(matrimonio_id, sexo_persona){
+  var location = '/matrimonios/' + matrimonio_id + '#' + (sexo_persona == 'M' ? 'esposo_seguimiento' : 'esposa_seguimiento');
+  window.location = location;
 }
-
 </script>

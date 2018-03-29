@@ -21,7 +21,9 @@
             </div>
           </div>
           <div class="col-xs-12 col-md-2">
+            <% if can? :create, Matrimonio %>
             <%= link_to 'Nuevo', new_matrimonio_path, { class: 'btn btn-primary btn-block'} %>
+            <% end %>
           </div>
         </div>
     </div>

@@ -32,7 +32,9 @@
 
 
       <div class="col-xs-12 col-md-2">
+        <% if can? :create, Actividad %>
         <%= link_to 'Nuevo', new_actividad_path, { class: 'btn btn-primary btn-block'} %>
+        <% end %>
       </div>
 
     </div>

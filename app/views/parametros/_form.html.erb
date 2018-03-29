@@ -1,32 +1,43 @@
-<%= form_with(model: parametro, local: true) do |form| %>
-  <% if parametro.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(parametro.errors.count, "error") %> prohibited this parametro from being saved:</h2>
+<div class="box box-primary">
+  <%= form_with(model: parametro, local: true, class: 'form-horizontal') do |form| %>
 
-      <ul>
-      <% parametro.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+    <div class="box-header with-border">
+      <div class="row">
+        <div class="col-xs-12 col-md-9">
+        </div>
+        <div class="col-xs-4 col-md-1">
+          <%= link_to 'Regresar', parametros_path, class: 'btn btn-default btn-block' %>
+        </div>
+        <div class="col-xs-4 col-md-1">
+          <%= submit_tag 'Guardar', class: "btn btn-primary btn-block" %>
+        </div>
+        <div class="col-xs-4 col-md-1">
+          <%= link_to 'Nuevo', new_parametro_path, { class: 'btn btn-primary btn-block'} %>
+        </div>
+      </div>
     </div>
+
+  <div class="box-body">
+    <div class="form-group">
+      <%= form.label :codigo, 'Código', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= form.text_field :codigo, id: :parametro_codigo, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :nombre, 'Nombre', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= form.text_field :nombre, id: :parametro_nombre, class: 'form-control' %>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <%= form.label :valor, 'Valor', class: 'col-sm-2 control-label' %>
+      <div class="col-sm-10">
+        <%= form.text_field :valor, id: :parametro_valor, class: 'form-control' %>
+      </div>
+    </div>
+  </div>
   <% end %>
-
-  <div class="field">
-    <%= form.label :codigo %>
-    <%= form.text_field :codigo, id: :parametro_codigo %>
-  </div>
-
-  <div class="field">
-    <%= form.label :nombre %>
-    <%= form.text_field :nombre, id: :parametro_nombre %>
-  </div>
-
-  <div class="field">
-    <%= form.label :valor %>
-    <%= form.text_field :valor, id: :parametro_valor %>
-  </div>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

@@ -21,7 +21,9 @@
             </div>
           </div>
           <div class="col-xs-12 col-md-2">
-            <%= link_to 'Nuevo', new_usuario_path, { class: 'btn btn-primary btn-block'} %>
+            <% if can? :create, Usuario %>
+              <%= link_to 'Nuevo', new_usuario_path, { class: 'btn btn-primary btn-block'} %>
+            <% end %>
           </div>
         </div>
     </div>
@@ -51,7 +53,9 @@
       </div>
 
       <div class="col-xs-2 col-md-1">
+        <% if can? :create, u %>
         <%= button_to 'Eliminar', u, method: :delete, data: { confirm: 'Seguro de eliminar?' }, class: "btn btn-danger" %>
+        <% end %>
       </div>
 
     </div>

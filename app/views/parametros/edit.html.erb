@@ -1,6 +1,14 @@
-<h1>Editing Parametro</h1>
-
-<%= render 'form', parametro: @parametro %>
-
-<%= link_to 'Show', @parametro %> |
-<%= link_to 'Back', parametros_path %>
+<section class="content-header">
+  <h1>
+    Parámetro
+    <small>Editar #<%=@parametro.id%></small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li><a href="/parametros"><i class="fa fa-book"></i> Parámetros</a></li>
+    <li class="active">Editar</li>
+  </ol>
+</section>
+<section class="content">
+  <%= render 'form', parametro: @parametro %>
+</section>

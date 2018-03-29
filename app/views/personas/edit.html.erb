@@ -1,6 +1,14 @@
-<h1>Editing Persona</h1>
-
-<%= render 'form', persona: @persona %>
-
-<%= link_to 'Show', @persona %> |
-<%= link_to 'Back', personas_path %>
+<section class="content-header">
+  <h1>
+    Persona
+    <small>Editar #<%=@persona.id%></small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <li><a href="/personas"><i class="fa fa-book"></i> Personas</a></li>
+    <li class="active">Editar</li>
+  </ol>
+</section>
+<section class="content">
+  <%= render 'form', persona: @persona %>
+</section>

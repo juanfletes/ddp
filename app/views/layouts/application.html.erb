@@ -9,7 +9,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
-<body class="hold-transition skin-blue-light sidebar-mini">
+<body class="hold-transition skin-blue sidebar-mini">
   <div class="wrapper">
     <header class="main-header">
       <!-- Logo -->
@@ -85,49 +85,41 @@
         <!-- /.search form -->
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
-          <li class="header">Menú</li>
-          <li class="active treeview">
-            <a href="#">
-              <i class="fa fa-dashboard"></i> <span>Inicio</span>
-              <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
-              </span>
-            </a>
-            <ul class="treeview-menu">
-              <li>
-                <a href="/matrimonios">
-                  <i class="fa fa-book"></i>
-                  <span>Matrimonios</span>
-                  <span class="pull-right-container">
-                    <span class="label label-danger pull-right"><%= Matrimonio.sin_matrimonio%></span>
-                    <span class="label label-warning pull-right"><%= Matrimonio.solo_boda_civil%></span>
-                    <span class="label label-primary pull-right"><%= Matrimonio.boda_civl_y_eclesiastica%></span>
-                  </span>
-                </a>
-              </li>
-              <li>
-                <a href="/actividades">
-                  <i class="fa fa-calendar"></i>
-                  <span>Actividades</span>
-                  <span class="pull-right-container">
-                    <span class="label label-primary pull-right"><%= Actividad.todas%></span>
-                  </span>
-                </a>
-              </li>
-              <li><a href="/usuarios"><i class="fa fa-user"></i> Usuarios</a></li>
-            </ul>
-          </li>
+          <li class="header">MENÚ</li>
+          <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+          <% if can? :read, Matrimonio %>
           <li>
-            <a href="#">
-              <i class="fa fa-cogs"></i> <span>Configuración</span>
+            <a href="/matrimonios">
+              <i class="fa fa-book"></i>
+              <span>Matrimonios</span>
               <span class="pull-right-container">
-                <i class="fa fa-angle-left pull-right"></i>
+                <span data-toggle="tooltip" data-placement="bottom" title="Parejas" class="label label-danger pull-right">
+                  <%= Matrimonio.sin_matrimonio%>
+                </span>
+                <span class="label label-warning pull-right"><%= Matrimonio.solo_boda_civil%></span>
+                <span class="label label-primary pull-right"><%= Matrimonio.boda_civl_y_eclesiastica%></span>
               </span>
             </a>
-            <ul class="treeview-menu">
-              <li><a href="/parametros"><i class="fa fa-user"></i> Parámetros</a></li>
-            </ul>
           </li>
+          <% end -%>
+          <% if can? :read, Actividad %>
+          <li>
+            <a href="/actividades">
+              <i class="fa fa-calendar"></i>
+              <span>Actividades</span>
+              <span class="pull-right-container">
+                <span class="label label-primary pull-right"><%= Actividad.todas%></span>
+              </span>
+            </a>
+          </li>
+          <% end -%>
+          <li class="header">CONFIGURACIÓN</li>
+          <% if can? :read, Usuario %>
+          <li><a href="/usuarios"><i class="fa fa-user"></i> Usuarios</a></li>
+          <% end -%>
+          <% if can? :read, Parametro %>
+          <li><a href="/parametros"><i class="fa fa-cogs"></i> Parámetros</a></li>
+          <% end -%>
         </ul>
       </section>
       <!-- /.sidebar -->
@@ -144,6 +136,11 @@
   <!-- ./wrapper -->
   <script type="text/javascript">
     $(document).ready(function($) {
+
+      $(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+      });
+
       <% if flash.count >0 %>
       <% flash.each do |type, message| -%>
       mostrarFlash('<%= type %>','<%= message.gsub(/['"\n]/, '\n') %>');

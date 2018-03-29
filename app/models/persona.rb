@@ -120,15 +120,21 @@ class Persona < ApplicationRecord
   end
 
   def esta_asignado_al_usuario?(usuario)
-    asignado_a.where(usuario_id: usuario.id).any?
+    AsignacionSeguimiento.where(persona_id: id, usuario_id: usuario.id).any?
   end
 
   def tiene_matrimonio?
-    matrimonio_esposo.any? || matrimonio_esposa.any?
+    matrimonio_esposo.present? || matrimonio_esposa.present?
   end
 
   def obtener_matrimonio
     try(:matrimonio_esposo) || try(:matrimonio_esposa)
+  end
+
+  def con_nota_seguimiento_dentro_del_periodo(usuario)
+    @dias_atras = Parametro.find_by(codigo: '001')
+    notas_seguimiento.where(personas_nota_seguimiento: { usuario_id: usuario.id })
+                             .where('fecha >= ?', Date.today - @dias_atras.valor.to_i.day).any?
   end
 
 end

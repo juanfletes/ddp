@@ -16,9 +16,13 @@
   </div>
   <div class="col-xs-12 col-md-1">
     <% if m.participa_en_actividad?(@actividad) %>
+      <% if can? :destroy, IntegranteActividad %>
       <button id="btn_<%= m.id %>" onclick="agregar_quitar_participante(<%= m.id %>);" class="btn btn-danger btn-sm">Quitar</button>
+      <% end %>
     <% else %>
+      <% if can? :create, IntegranteActividad %>
       <button id="btn_<%= m.id %>" onclick="agregar_quitar_participante(<%= m.id %>);" class="btn btn-primary btn-sm">Agregar</button>
+      <% end %>
     <% end %>
   </div>
 </div>
