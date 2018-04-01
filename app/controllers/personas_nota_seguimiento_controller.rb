@@ -1,5 +1,7 @@
 class PersonasNotaSeguimientoController < ApplicationController
   before_action :set_persona_nota_seguimiento, only: [:edit, :update, :destroy]
+  check_authorization
+  load_and_authorize_resource
 
   # GET /personas_nota_seguimiento/new
   def new

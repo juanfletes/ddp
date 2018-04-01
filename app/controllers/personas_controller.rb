@@ -1,5 +1,6 @@
 class PersonasController < ApplicationController
   before_action :set_persona, only: [:show, :edit, :update, :destroy]
+  check_authorization
   load_and_authorize_resource
 
   # GET /personas

@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
   before_action :authenticate_usuario!
-  # check_authorization
 
   def current_ability
     @current_ability ||= Ability.new(current_usuario)

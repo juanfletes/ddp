@@ -62,7 +62,7 @@ gem 'pg_search'
 # The Moment.js JavaScript library ready to play with the Rails Asset Pipeline
 gem 'momentjs-rails'
 # Ckeditor integration gem for rails http://ckeditor.com/
-gem 'ckeditor'
+#gem 'ckeditor'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

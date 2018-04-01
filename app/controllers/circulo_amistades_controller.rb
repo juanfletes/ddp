@@ -2,6 +2,7 @@
 
 class CirculoAmistadesController < ApplicationController
   before_action :set_circulo_amistad, only: [:show, :edit, :update, :destroy]
+  check_authorization
   load_and_authorize_resource
 
   # GET /circulo_amistades

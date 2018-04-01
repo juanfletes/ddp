@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 class HomeController < ApplicationController
-  skip_authorization_check
 
   def index
     @buscar = params[:buscar]
@@ -13,6 +12,7 @@ class HomeController < ApplicationController
                                                              asignaciones_seguimiento: { usuario_id: current_usuario.id})
                                                       .where('fecha >= ?',
                                                               Date.today - @dias_atras_seguimiento.valor.to_i.day)
+                                                      .distinct
                                                       .count
 
     @personas_sin_seguimiento = @personas_asignadas - @personas_con_seguimiento

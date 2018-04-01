@@ -1,6 +1,6 @@
 class UsuariosController < ApplicationController
   before_action :set_usuario, only: [:show, :edit, :update, :destroy]
-  before_action :lista_personas, only: [:show, :edit, :new]
+  check_authorization
   load_and_authorize_resource
 
   # GET /usuarios
@@ -184,10 +184,6 @@ class UsuariosController < ApplicationController
   def usuario_params_update
     params.require(:usuario).permit(:email, :primer_nombre, :segundo_nombre, :primer_apellido, :segundo_apellido,
                                     :persona_id)
-  end
-
-  def lista_personas
-    @personas = Persona.order(:primer_nombre, :primer_apellido)
   end
 
 end
