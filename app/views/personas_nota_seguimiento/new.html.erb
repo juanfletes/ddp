@@ -1,0 +1,28 @@
+<%= render 'shared/page_title', title: 'Seguimiento',
+                                small_title: 'Nuevo',
+                                navigation: [{ title: 'Personas', url: '/personas', icon: 'fa-user' },
+                                             { title: 'Nueva', url: '#', icon: 'fa-circle-o' }] %>
+<section class="content">
+  <div class="box box-primary">
+  <%= form_with(model: [ @persona, @persona.notas_seguimiento.build ], local: true, class: 'form-horizontal') do |form| %>
+    <div class="box-header with-border">
+      <div class="row">
+        <div class="col-xs-12 col-md-10">
+          <h3 class="box-title">
+            <%= @persona.nombre_completo %>
+          </h3>
+        </div>
+        <div class="col-xs-6 col-md-1">
+          <%= submit_tag 'Guardar', class: "btn btn-primary btn-block" %>
+        </div>
+        <div class="col-xs-6 col-md-1">
+          <%= link_to 'Regresar', persona_path(@persona), class: 'btn btn-default btn-block' %>
+        </div>
+      </div>
+    </div>
+    <div class="box-body">
+    <%= render 'form', form: form %>
+    </div>
+  <% end %>
+  </div>
+</section>

@@ -53,126 +53,80 @@
           </div>
       </div>
       <br>
-      <form id="datos_personales">
-      <%= render 'form', matrimonio: @matrimonio %>
-      </form>
-    </div>
-  </div>
-  <!-- /Datos personales -->
+      <div id="datos_personales">
 
-  <!-- Seguimiento -->
-  <div class="box box-primary direct-chat direct-chat-primary">
-    <div class="box-header with-border">
-      <h3 class="box-title">Seguimiento</h3>
-      <div class="box-tools pull-right">
-        <button class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
-      </div>
-    </div>
-    <!-- /.box-header -->
-    <div class="box-body">
+
 
 <div class="row">
+  <div class="col-xs-12 col-md-12">
+    <div class="box">
+        <div class="box-body">
+          <div class="row">
+            <div class="col-xs-6 col-md-2">
+              <div class="form-group">
+              <%= label_tag 'matrimonio_boda_civil', 'Boda Civil', class: 'col-sm-10 control-label' %>
+              <div class="col-sm-2">
+                <%= check_box_tag 'matrimonio[boda_civil]',1 ,@matrimonio.boda_civil %>
+              </div>
+            </div>
+            </div>
+            <div class="col-xs-6 col-md-2">
+              <div class="form-group">
+              <%= label_tag 'matrimonio_boda_eclesiastica', 'Boda Eclesiástica', class: 'col-sm-10 control-label' %>
+              <div class="col-sm-2">
+                <%= check_box_tag 'matrimonio[boda_eclesiastica]',1 ,@matrimonio.boda_eclesiastica %>
+              </div>
+            </div>
+            </div>
+            <div class="col-xs-12 col-md-2">
 
+            </div>
+            <div class="col-xs-12 col-md-6">
+               <div class="form-group">
+                <%= label_tag 'matrimonio_observacion', 'Observación', class: 'col-sm-2 control-label' %>
+                <div class="col-sm-10">
+                  <%= text_field_tag 'matrimonio[observacion]', @matrimonio.observacion, class: 'form-control' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="row">
   <div class="col-xs-12 col-md-6">
-    <div class="box box-primary direct-chat direct-chat-primary"">
+
+    <div class="box box-primary">
       <div class="box-header with-border">
         <h3 class="box-title">Él</h3>
       </div>
       <div class="box-body">
-        <a id="esposo_seguimiento"></a>
-        <% if @matrimonio.esposo.seguimiento %>
-          <div class="input-group" style="padding: 10px">
-            <input id="txt-seguimiento_el" type="text" placeholder="Escribir nota de seguimiento ..." class="form-control">
-            <span class="input-group-btn">
-              <button id="btn-seguimiento_el" type="button" class="btn btn-primary btn-flat">Enviar</button>
-            </span>
-          </div>
-        <% end %>
-        <div id="notas_seguimiento_el" class="direct-chat-messages" style="height: auto; max-height: 450px;">
-          <% @matrimonio.esposo.notas_seguimiento.order(fecha: :desc).each do |notas| %>
-            <% if can? :read, notas %>
-              <div id="nota-<%= notas.id %>" class="direct-chat-msg">
-                <div class="direct-chat-info clearfix">
-                  <span class="direct-chat-name pull-left"><%= notas.usuario.nombre_completo %></span>
-                  <span class="direct-chat-timestamp pull-right"><%= notas.fecha %></span>
-                </div>
-                <%= gravatar_image_tag(notas.usuario.email, { alt: notas.usuario.email, class: 'direct-chat-img' }) %>
-                <div class="direct-chat-text">
-                  <div class="row">
-                    <div class="col-xs-11">
-                      <%= notas.notas %>
-                    </div>
-                    <div class="col-xs-1">
-                      <% if can? :destroy, notas %>
-                       <button class="btn btn-danger" onclick="fn_eliminar(<%= notas.id %>);">
-                        <i class="fa fa-trash" style="color: #ffffff"></i>
-                      </button>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-          <% end %>
-        </div>
+        <%= render 'personas/show', persona: @matrimonio.esposo %>
       </div>
     </div>
-  </div>
 
+  </div>
   <div class="col-xs-12 col-md-6">
-    <div class="box box-danger direct-chat direct-chat-danger">
+
+    <div class="box box-danger">
       <div class="box-header with-border">
         <h3 class="box-title">Ella</h3>
       </div>
       <div class="box-body">
-      <a id="esposa_seguimiento"></a>
-      <% if @matrimonio.esposa.seguimiento %>
-        <div class="input-group" style="padding: 10px">
-          <input id="txt-seguimiento_ella" type="text" placeholder="Escribir nota de seguimiento ..." class="form-control">
-          <span class="input-group-btn">
-            <button id="btn-seguimiento_ella" type="button" class="btn btn-primary btn-flat">Enviar</button>
-          </span>
-        </div>
-      <% end %>
-      <div id="notas_seguimiento_ella" class="direct-chat-messages" style="height: auto; max-height: 450px;">
-        <% @matrimonio.esposa.notas_seguimiento.order(fecha: :desc).each do |notas| %>
-            <% if can? :read, notas %>
-              <div id="nota-<%= notas.id %>" class="direct-chat-msg">
-                <div class="direct-chat-info clearfix">
-                  <span class="direct-chat-name pull-left"><%= notas.usuario.nombre_completo %></span>
-                  <span class="direct-chat-timestamp pull-right"><%= notas.fecha %></span>
-                </div>
-                <%= gravatar_image_tag(notas.usuario.email, { alt: notas.usuario.email, class: 'direct-chat-img' }) %>
-                <div class="direct-chat-text">
-                  <div class="row">
-                    <div class="col-xs-11">
-                      <%= notas.notas %>
-                    </div>
-                    <div class="col-xs-1">
-                      <% if can? :destroy, notas %>
-                       <button class="btn btn-danger" onclick="fn_eliminar(<%= notas.id %>);">
-                        <i class="fa fa-trash" style="color: #ffffff"></i>
-                      </button>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            <% end %>
-        <% end %>
-      </div>
-
-
-
+        <%= render 'personas/show', persona: @matrimonio.esposa %>
       </div>
     </div>
   </div>
 </div>
-    </div>
-    <!-- /.box-body -->
-  </div>
-  <!-- /Seguimiento -->
 
+
+
+
+      </div>
+    </div>
+  </div>
+  <!-- /Datos personales -->
 
   <!-- Actividades -->
   <div class="box box-primary">
@@ -222,85 +176,4 @@
     </div>
   </div>
   <!-- /Actividades -->
-
 </section>
-<script type="text/javascript">
-  $(document).ready(function() {
-    $('#datos_personales').find('input, textarea, button, select').attr('readonly', true).attr('disabled', 'disabled');
-  });
-
-  function fn_guardar_seguimiento_esposo(){
-    $.post('/matrimonios/guardar_seguimiento',
-           { persona_id: <%= @matrimonio.esposo.id %>,
-             nota: $('#txt-seguimiento_el').val() },
-             function(data){
-               if(data.result == true){
-                 mostrarMensaje('Éxito', data.mensaje, 'success');
-                   $.get('/matrimonios/obtener_nota', { id: data.id },
-                    function(data){
-                      $('#notas_seguimiento_el').prepend(data);
-                    }
-                  );
-               }else {
-                 mostrarMensaje('Error', data.mensaje, 'error');
-               }
-             }
-          )
-  }
-
-
-  function fn_guardar_seguimiento_esposa(){
-    $.post('/matrimonios/guardar_seguimiento',
-           { persona_id: <%= @matrimonio.esposa.id %>,
-             nota: $('#txt-seguimiento_ella').val() },
-             function(data){
-               if(data.result == true){
-                 mostrarMensaje('Éxito', data.mensaje, 'success');
-                   $.get('/matrimonios/obtener_nota', { id: data.id },
-                    function(data){
-                      $('#notas_seguimiento_ella').prepend(data);
-                    }
-                  );
-               }else {
-                 mostrarMensaje('Error', data.mensaje, 'error');
-               }
-             }
-          )
-  }
-
-  function fn_eliminar(id){
-    (new PNotify({
-        title: 'Confirmación',
-        text: 'Seguro de eliminar?',
-        icon: 'glyphicon glyphicon-question-sign',
-        hide: false,
-        confirm: {
-            confirm: true
-        },
-        buttons: {
-            sticker: false
-        },
-        history: {
-            history: false
-        },
-        stack: {
-            'dir1': 'down',
-            'dir2': 'right',
-            'modal': true
-        }
-      })).get().on('pnotify.confirm', function() {
-          $.post('/matrimonios/eliminar_seguimiento', {id: id}, function(data){
-          if(data.result = true){
-            $('#nota-' + id).remove();
-            mostrarMensaje('Éxito', data.mensaje, 'success');
-          }else {
-            mostrarMensaje('Error', data.mensaje, 'error');
-          }
-        });
-    });
-  }
-
-  $('#btn-seguimiento_el').click(fn_guardar_seguimiento_esposo);
-  $('#btn-seguimiento_ella').click(fn_guardar_seguimiento_esposa);
-
-</script>

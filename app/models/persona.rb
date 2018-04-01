@@ -89,8 +89,8 @@ class Persona < ApplicationRecord
   # ------------------------------------------------------------------------------------------------
 
   def relaciones?
-    errors.add(:base, 'Está relacionado a un matrimonio') if matrimonio_esposo.exist?
-    errors.add(:base, 'Está relacionado a un matrimonio') if matrimonio_esposa.exist?
+    errors.add(:base, 'Está relacionado a un matrimonio') unless matrimonio_esposo.nil?
+    errors.add(:base, 'Está relacionado a un matrimonio') unless matrimonio_esposa.nil?
     errors.add(:base, 'Tiene notas de seguimiento') if notas_seguimiento.any?
     throw :abort if errors.any?
   end

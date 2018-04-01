@@ -1,15 +1,10 @@
-<section class="content-header">
-  <h1>Nueva Actividad</h1>
-  <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>
-    <li><a href="/actividades"><i class="fa fa-calendar"></i> Actividades</a></li>
-    <li class="active">Nueva</li>
-  </ol>
-</section>
-<%= form_with(model: @actividad, local: true, class: 'form-horizontal') do |form| %>
+<%= render 'shared/page_title', title: 'Nueva Actividad',
+                                small_title: "",
+                                navigation: [{ title: 'Actividades', url: '/actividades', icon: 'fa-calendar' },
+                                             { title: 'Nueva', url: '#', icon: 'fa-circle-o' }] %>
 <section class="content">
+<%= form_with(model: @actividad, local: true, class: 'form-horizontal') do |form| %>
 <div class="box box-primary">
-
     <div class="box-header with-border">
       <div class="row">
         <div class="col-xs-12 col-md-10">
@@ -26,4 +21,6 @@
   <div class="box-body">
 <%= render 'form', actividad: @actividad, form: form %>
 </div>
+</div>
 <% end %>
+</section>

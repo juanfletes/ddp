@@ -87,6 +87,9 @@
         <ul class="sidebar-menu">
           <li class="header">MENÚ</li>
           <li><a href="/"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+          <% if can? :read, Persona %>
+          <li><a href="/personas"><i class="fa fa-user"></i> Personas</a></li>
+          <% end -%>
           <% if can? :read, Matrimonio %>
           <li>
             <a href="/matrimonios">

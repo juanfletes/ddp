@@ -1,0 +1,16 @@
+<section class="content-header">
+  <h1>
+    <%= title %>
+    <small><%= small_title %></small>
+  </h1>
+  <ol class="breadcrumb">
+    <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>
+    <% navigation.each do |n| %>
+    <li class="active">
+    <%= link_to n[:url] do %>
+      <i class="fa <%= n[:icon] %> <%= 'active' if n == navigation.last %>"></i> <%= n[:title] %></li>
+    <% end  %>
+    <% end %>
+  </ol>
+</section>
+

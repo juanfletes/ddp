@@ -1,21 +1,8 @@
-<section class="content-header">
-  <h1>
-    <span>Actividad ID: <%= @actividad.id %></span>
-    <small><strong>
-      <span class="text-success"><%= I18n.t("enum.actividad.tipo.#{@actividad.tipo}") %></span>
-      <%= @actividad.nombre %>
-    </strong>
-  </small>
-</h1>
-  <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>
-    <li><a href="/actividades"><i class="fa fa-calendar"></i> Actividades</a></li>
-    <li class="active">Ver</li>
-  </ol>
-</section>
-
+<%= render 'shared/page_title', title: 'Actividad',
+                                small_title: "ID ##{@actividad.id} " + I18n.t("enum.actividad.tipo.#{@actividad.tipo}") +' ' + @actividad.nombre,
+                                navigation: [{ title: 'Actividades', url: '/actividades', icon: 'fa-calendar' },
+                                             { title: 'Ver', url: '#', icon: 'fa-circle-o' }] %>
 <section class="content">
-
   <div class="nav-tabs-custom">
     <ul class="nav nav-tabs">
       <li class="active"><a href="#tab_1" data-toggle="tab">Datos de la actividad</a></li>

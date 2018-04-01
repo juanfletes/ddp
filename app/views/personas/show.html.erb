@@ -1,79 +1,31 @@
-<p id="notice"><%= notice %></p>
+<%= render 'shared/page_title', title: 'Persona',
+                                small_title: "ID ##{@persona.id}",
+                                navigation: [{ title: 'Personas', url: '/personas', icon: 'fa-user' },
+                                             { title: 'Ver', url: '#', icon: 'fa-circle-o' }] %>
+<section class="content">
+  <div class="box box-primary">
 
-<p>
-  <strong>Primer nombre:</strong>
-  <%= @persona.primer_nombre %>
-</p>
+    <div class="box-header with-border">
+      <div class="row">
+        <div class="col-xs-12 col-md-9">
+          <h3 class="box-title">
+            <%= @persona.nombre_completo %>
+          </h3>
+        </div>
+        <div class="col-xs-4 col-md-1">
+          <%= link_to 'Nuevo', new_persona_path, { class: 'btn btn-primary btn-block'} %>
+        </div>
+        <div class="col-xs-4 col-md-1">
+          <%= link_to 'Editar',edit_persona_path(@persona), class: "btn btn-primary btn-block" %>
+        </div>
+        <div class="col-xs-4 col-md-1">
+          <%= link_to 'Regresar', personas_path, class: 'btn btn-default btn-block' %>
+        </div>
+      </div>
+    </div>
 
-<p>
-  <strong>Segundo nombre:</strong>
-  <%= @persona.segundo_nombre %>
-</p>
-
-<p>
-  <strong>Primer apellido:</strong>
-  <%= @persona.primer_apellido %>
-</p>
-
-<p>
-  <strong>Segundo apellido:</strong>
-  <%= @persona.segundo_apellido %>
-</p>
-
-<p>
-  <strong>Sexo:</strong>
-  <%= @persona.sexo %>
-</p>
-
-<p>
-  <strong>Fecha nacimiento:</strong>
-  <%= @persona.fecha_nacimiento %>
-</p>
-
-<p>
-  <strong>Direccion:</strong>
-  <%= @persona.direccion %>
-</p>
-
-<p>
-  <strong>Bautizado:</strong>
-  <%= @persona.bautizado %>
-</p>
-
-<p>
-  <strong>Epp:</strong>
-  <%= @persona.epp %>
-</p>
-
-<p>
-  <strong>Edl:</strong>
-  <%= @persona.edl %>
-</p>
-
-<p>
-  <strong>Observacion:</strong>
-  <%= @persona.observacion %>
-</p>
-
-<p>
-  <strong>Telefono:</strong>
-  <%= @persona.telefono %>
-</p>
-
-<p>
-  <strong>Celular:</strong>
-  <%= @persona.celular %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @persona.email %>
-</p>
-
-<p>
-  <strong>Seguimiento:</strong>
-  <%= @persona.seguimiento %>
-</p>
-
-<%= link_to 'Edit', edit_persona_path(@persona) %> |
-<%= link_to 'Back', personas_path %>
+    <div class="box-body">
+      <%= render 'show', persona: @persona %>
+    </div>
+  </div>
+</section>

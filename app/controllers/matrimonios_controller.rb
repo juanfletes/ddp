@@ -24,45 +24,6 @@ class MatrimoniosController < ApplicationController
                             .order(fecha: :desc)
   end
 
-  def guardar_seguimiento
-    begin
-      id = 0
-      result = true
-      mensaje = 'Guardado correctamente'
-      nota = PersonaNotaSeguimiento.new
-      nota.fecha = Date.today
-      nota.usuario_id = current_usuario.id
-      nota.persona_id = params[:persona_id]
-      nota.notas = params[:nota]
-      raise Util::Mensaje.mensajes_error_modelo(nota.errors) unless nota.save
-      id = nota.id
-    rescue StandardError => e
-      result = false
-      mensaje = 'Error al guardar: ' + Util::Mensaje.limpiar_mensaje(e.message)
-    ensure
-      render json: { result: result, mensaje: mensaje, id: id }
-    end
-  end
-
-  def eliminar_seguimiento
-    begin
-      result = true
-      mensaje = 'Eliminado correctamente'
-      nota = PersonaNotaSeguimiento.find(params[:id])
-      raise Util::Mensaje.mensajes_error_modelo(nota.errors) unless nota.destroy
-    rescue StandardError => e
-      result = false
-      mensaje = 'Error al eliminar: ' + Util::Mensaje.limpiar_mensaje(e.message)
-    ensure
-      render json: { result: result, mensaje: mensaje, id: params[:id] }
-    end
-  end
-
-  def obtener_nota
-    @nota = PersonaNotaSeguimiento.find(params[:id])
-    render 'nota', layout: false
-  end
-
   # GET /matrimonios/new
   def new
     @matrimonio = Matrimonio.new

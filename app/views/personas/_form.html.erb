@@ -1,92 +1,106 @@
-<%= form_with(model: persona, local: true) do |form| %>
-  <% if persona.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(persona.errors.count, "error") %> prohibited this persona from being saved:</h2>
+  <%= render 'shared/errors', obj: @persona %>
 
-      <ul>
-      <% persona.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <div class="form-group">
+    <%= form.label :primer_nombre , '* Primer Nombre:', class: 'col-sm-2 control-label'%>
+    <div class="col-sm-6">
+    <%= form.text_field :primer_nombre, id: :persona_primer_nombre , class: 'form-control', required: ''%>
     </div>
-  <% end %>
-
-  <div class="field">
-    <%= form.label :primer_nombre %>
-    <%= form.text_field :primer_nombre, id: :persona_primer_nombre %>
   </div>
 
-  <div class="field">
-    <%= form.label :segundo_nombre %>
-    <%= form.text_field :segundo_nombre, id: :persona_segundo_nombre %>
+  <div class="form-group">
+    <%= form.label :segundo_nombre, 'Segundo Nombre:' , class: 'col-sm-2 control-label'%>
+    <div class="col-sm-6">
+    <%= form.text_field :segundo_nombre, id: :persona_segundo_nombre, class: 'form-control' %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :primer_apellido %>
-    <%= form.text_field :primer_apellido, id: :persona_primer_apellido %>
+  <div class="form-group">
+    <%= form.label :primer_apellido, '* Primer Apellido:', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-6">
+    <%= form.text_field :primer_apellido, id: :persona_primer_apellido, class: 'form-control' %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :segundo_apellido %>
-    <%= form.text_field :segundo_apellido, id: :persona_segundo_apellido %>
+  <div class="form-group">
+    <%= form.label :segundo_apellido, 'Segundo Apellido:', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-6">
+    <%= form.text_field :segundo_apellido, id: :persona_segundo_apellido, class: 'form-control' %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :sexo %>
-    <%= form.text_field :sexo, id: :persona_sexo %>
+  <div class="form-group">
+    <%= form.label :sexo, '* Sexo:', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-6">
+    <%= form.select(:sexo, [{id:'M', name: 'MASCULINO'},{id:'F', name: 'FEMENIMO'}].map {|c| [c[:name],c[:id]]},{include_blank: true},{class: "form-control"}) %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :fecha_nacimiento %>
-    <%= form.date_select :fecha_nacimiento, id: :persona_fecha_nacimiento %>
+  <div class="form-group">
+    <%= form.label :fecha_nacimiento, 'Fecha de nacimiento:', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-6">
+    <%= form.text_field :fecha_nacimiento, id: :persona_fecha_nacimiento, class: 'form-control' %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :direccion %>
-    <%= form.text_field :direccion, id: :persona_direccion %>
+  <div class="form-group">
+    <%= form.label :telefono, 'Teléfono:', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-6">
+    <%= form.text_field :telefono, id: :persona_telefono, class: 'form-control' %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :bautizado %>
+  <div class="form-group">
+    <%= form.label :email, 'Email:', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-6">
+    <%= form.text_field :email, id: :persona_email, class: 'form-control' %>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :direccion, 'Dirección:', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-6">
+    <%= form.text_area :direccion, id: :persona_direccion, class: 'form-control'%>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <%= form.label :bautizado, 'Bautizado:', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-1">
     <%= form.check_box :bautizado, id: :persona_bautizado %>
-  </div>
-
-  <div class="field">
-    <%= form.label :epp %>
+    </div>
+    <%= form.label :epp, 'EPP:', class: 'col-sm-1 control-label' %>
+    <div class="col-sm-1">
     <%= form.check_box :epp, id: :persona_epp %>
+    </div>
   </div>
 
-  <div class="field">
-    <%= form.label :edl %>
+  <div class="form-group">
+    <%= form.label :edl, 'EDL:', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-1">
     <%= form.check_box :edl, id: :persona_edl %>
-  </div>
-
-  <div class="field">
-    <%= form.label :observacion %>
-    <%= form.text_field :observacion, id: :persona_observacion %>
-  </div>
-
-  <div class="field">
-    <%= form.label :telefono %>
-    <%= form.text_field :telefono, id: :persona_telefono %>
-  </div>
-
-  <div class="field">
-    <%= form.label :celular %>
-    <%= form.text_field :celular, id: :persona_celular %>
-  </div>
-
-  <div class="field">
-    <%= form.label :email %>
-    <%= form.text_field :email, id: :persona_email %>
-  </div>
-
-  <div class="field">
-    <%= form.label :seguimiento %>
+    </div>
+    <%= form.label :seguimiento, 'Seguimiento:', class: 'col-sm-1 control-label' %>
+    <div class="col-sm-1">
     <%= form.check_box :seguimiento, id: :persona_seguimiento %>
+    </div>
   </div>
 
-  <div class="actions">
-    <%= form.submit %>
+  <div class="form-group">
+    <%= form.label :observacion, 'Observación:', class: 'col-sm-2 control-label' %>
+    <div class="col-sm-6">
+    <%= form.text_area :observacion, id: :persona_observacion, class: 'form-control' %>
+    </div>
   </div>
-<% end %>
+<script>
+  $(document).ready(function() {
+    $('#persona_fecha_nacimiento').daterangepicker({
+      "singleDatePicker": true,
+      "showDropdowns": true,
+      "autoApply": true,
+      "autoUpdateInput": false,
+      "locale": {
+                  format: 'YYYY-MM-DD'
+                },
+    });
+  });
+</script>

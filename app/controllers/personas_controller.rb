@@ -85,10 +85,15 @@ class PersonasController < ApplicationController
   # DELETE /personas/1
   # DELETE /personas/1.json
   def destroy
-    @persona.destroy
-    respond_to do |format|
-      format.html { redirect_to personas_url, notice: 'Persona eliminada correctamente.' }
-      format.json { head :no_content }
+    begin
+      result = true
+      mensaje = 'Eliminado correctamente'
+      raise Util::Mensaje.mensajes_error_modelo(@persona.errors) unless @persona.destroy
+    rescue StandardError => e
+      result = false
+      mensaje = 'Error al eliminar: ' + Util::Mensaje.limpiar_mensaje(e.message)
+    ensure
+      render json: { result: result, mensaje: mensaje, id: params[:id] }
     end
   end
 

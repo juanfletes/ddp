@@ -1,17 +1,10 @@
-<section class="content-header">
-  <h1>
-    Parámetro
-    <small>Ver #<%=@parametro.id%></small>
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>
-    <li><a href="/parametros"><i class="fa fa-book"></i> Parámetros</a></li>
-    <li class="active">ver</li>
-  </ol>
-</section>
-<section class="content">
+<%= render 'shared/page_title', title: 'Parámetro',
+                                small_title: "ID ##{@parametro.id}",
+                                navigation: [{ title: 'Parámetros', url: '/parametros', icon: 'fa-cogs' },
+                                             { title: 'Ver', url: '#', icon: 'fa-circle-o' }] %>
+ <section class="content">
 
-<div class="box box-primary">
+  <div class="box box-primary">
     <div class="box-header with-border">
       <div class="row">
         <div class="col-xs-12 col-md-11">
@@ -22,35 +15,35 @@
       </div>
     </div>
 
-  <div class="box-body">
-    <div class="row">
-      <div class="col-xs-2">
-        <strong>Código:</strong>
+    <div class="box-body">
+      <div class="row">
+        <div class="col-xs-2">
+          <strong>Código:</strong>
+        </div>
+        <div class="col-xs-10">
+          <%= @parametro.codigo %>
+        </div>
       </div>
-      <div class="col-xs-10">
-        <%= @parametro.codigo %>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-xs-2">
-        <strong>Nombre:</strong>
+      <div class="row">
+        <div class="col-xs-2">
+          <strong>Nombre:</strong>
+        </div>
+        <div class="col-xs-10">
+          <%= @parametro.nombre %>
+        </div>
       </div>
-      <div class="col-xs-10">
-        <%= @parametro.nombre %>
-      </div>
-    </div>
 
-    <div class="row">
-      <div class="col-xs-2">
-        <strong>Valor:</strong>
+      <div class="row">
+        <div class="col-xs-2">
+          <strong>Valor:</strong>
+        </div>
+        <div class="col-xs-10">
+          <%= @parametro.valor %>
+        </div>
       </div>
-      <div class="col-xs-10">
-        <%= @parametro.valor %>
-      </div>
-    </div>
 
+    </div>
   </div>
-</div>
 
 </section>

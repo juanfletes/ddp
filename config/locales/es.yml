@@ -46,3 +46,6 @@ es:
         boda_civil: 'BODA CIVIL'
         boda_eclesiastica: 'BODA ECLESIASTICA'
         charla_prematrimonial: 'CHARLA PREMATRIMONIAL'
+  boolean:
+    'true': 'SI'
+    'false': 'NO'

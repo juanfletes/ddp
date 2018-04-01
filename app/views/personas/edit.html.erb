@@ -1,14 +1,28 @@
-<section class="content-header">
-  <h1>
-    Persona
-    <small>Editar #<%=@persona.id%></small>
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>
-    <li><a href="/personas"><i class="fa fa-book"></i> Personas</a></li>
-    <li class="active">Editar</li>
-  </ol>
-</section>
+<%= render 'shared/page_title', title: 'Persona',
+                                small_title: "ID ##{@persona.id}",
+                                navigation: [{ title: 'Personas', url: '/personas', icon: 'fa-user' },
+                                             { title: 'Editar', url: '#', icon: 'fa-circle-o' }] %>
 <section class="content">
-  <%= render 'form', persona: @persona %>
+  <div class="box box-primary">
+  <%= form_with(model: @persona, local: true, class: 'form-horizontal') do |form| %>
+    <div class="box-header with-border">
+      <div class="row">
+        <div class="col-xs-12 col-md-9">
+        </div>
+        <div class="col-xs-4 col-md-1">
+          <%= submit_tag 'Guardar', class: "btn btn-primary btn-block" %>
+        </div>
+        <div class="col-xs-4 col-md-1">
+          <%= link_to 'Nuevo', new_persona_path, { class: 'btn btn-primary btn-block'} %>
+        </div>
+        <div class="col-xs-4 col-md-1">
+          <%= link_to 'Regresar', personas_path, class: 'btn btn-default btn-block' %>
+        </div>
+      </div>
+    </div>
+    <div class="box-body">
+    <%= render 'form', persona: @persona, form: form %>
+    </div>
+  <% end %>
+  </div>
 </section>

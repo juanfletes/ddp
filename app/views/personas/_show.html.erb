@@ -1,0 +1,129 @@
+
+    <div class="row">
+      <div class="col-xs-3">
+        <strong>Nombres:</strong>
+      </div>
+      <div class="col-xs-9">
+        <%= persona.primer_nombre %> <%= persona.segundo_nombre %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-3">
+        <strong>Apellidos:</strong>
+      </div>
+      <div class="col-xs-9">
+        <%= persona.primer_apellido %> <%= persona.segundo_apellido %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-3">
+        <strong>Sexo:</strong>
+      </div>
+      <div class="col-xs-9">
+        <%= persona.sexo %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-3">
+        <strong>Fecha nacimiento:</strong>
+      </div>
+      <div class="col-xs-9">
+        <%= persona.fecha_nacimiento %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-3">
+        <strong>Teléfono:</strong>
+      </div>
+      <div class="col-xs-9">
+        <%= persona.telefono %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-3">
+        <strong>Email:</strong>
+      </div>
+      <div class="col-xs-9">
+        <%= persona.email %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-3">
+        <strong>Dirección:</strong>
+      </div>
+      <div class="col-xs-9">
+        <%= simple_format(persona.direccion) %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-3">
+        <strong>Bautizado:</strong>
+      </div>
+      <div class="col-xs-3">
+        <%= I18n.t("boolean.#{persona.bautizado}") %>
+      </div>
+      <div class="col-xs-3">
+        <strong>EPP:</strong>
+      </div>
+      <div class="col-xs-3">
+        <%= I18n.t("boolean.#{persona.epp}") %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-3">
+        <strong>EDL:</strong>
+      </div>
+      <div class="col-xs-3">
+        <%= I18n.t("boolean.#{persona.edl}") %>
+      </div>
+      <div class="col-xs-3">
+        <strong>Seguimiento:</strong>
+      </div>
+      <div class="col-xs-3">
+        <%= I18n.t("boolean.#{persona.seguimiento}") %>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-xs-3">
+        <strong>Observación:</strong>
+      </div>
+      <div class="col-xs-9">
+        <%= simple_format(persona.observacion) %>
+      </div>
+    </div>
+  </br>
+    <div class="box box-primary direct-chat direct-chat-primary"">
+
+    <div class="box-header with-border">
+      <div class="row">
+        <div class="col-xs-6 col-md-10">
+          <h3 class="box-title">
+            Seguimiento
+          </h3>
+        </div>
+        <div class="col-xs-6 col-md-2">
+          <div class="pull-right">
+          <% if persona.seguimiento %>
+          <%= link_to 'Nuevo', new_persona_persona_nota_seguimiento_path(persona.id), { class: 'btn btn-primary btn-block'} %>
+          <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+
+      <div class="box-body">
+        <a id="esposo_seguimiento"></a>
+        <div id="notas_seguimiento_el" class="direct-chat-messages" style="height: auto; max-height: 450px;">
+          <%= render persona.notas_seguimiento.order(fecha: :desc) %>
+        </div>
+      </div>
+    </div>

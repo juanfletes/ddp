@@ -1,0 +1,2 @@
+module PersonasNotaSeguimientoHelper
+end

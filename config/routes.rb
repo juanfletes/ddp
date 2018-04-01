@@ -17,9 +17,6 @@ Rails.application.routes.draw do
   namespace :matrimonios do
     get 'lista'
     post 'destroy'
-    post 'guardar_seguimiento'
-    post 'eliminar_seguimiento'
-    get 'obtener_nota'
   end
 
   namespace :actividades do
@@ -39,5 +36,7 @@ Rails.application.routes.draw do
   resources :matrimonios
   resources :actividades
   resources :circulo_amistades
-  resources :personas
+  resources :personas do
+    resources :personas_nota_seguimiento, except: [:index, :show]
+  end
 end

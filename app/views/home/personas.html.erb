@@ -9,7 +9,7 @@
   </div>
 
   <div class="col-xs-11 col-md-8">
-      <a href="/matrimonios/<%= p.obtener_matrimonio.try(:id) %>">
+      <a href="/personas/<%= p.id %>">
         <%= p.nombre_completo %> <%= '|' unless p.telefono.blank? %> <%= p.telefono %></li>
       </a>
   </div>
@@ -27,18 +27,12 @@
 
   <div class="col-xs-6 col-md-1">
     <% if p.seguimiento %>
-    <button class="btn btn-sm btn-primary btn-block" onclick="registrar_seguimiento(<%= p.obtener_matrimonio.try(:id) %>, '<%= p.sexo %>')">
+    <a class="btn btn-sm btn-primary btn-block" href="<%= new_persona_persona_nota_seguimiento_path(p.id) %>">
       <i class="fa fa-plus"></i>
       Seguimiento
-    </button>
+    </a>
     <% end %>
   </div>
 
 </div>
 <% end %>
-<script type="text/javascript">
-function registrar_seguimiento(matrimonio_id, sexo_persona){
-  var location = '/matrimonios/' + matrimonio_id + '#' + (sexo_persona == 'M' ? 'esposo_seguimiento' : 'esposa_seguimiento');
-  window.location = location;
-}
-</script>

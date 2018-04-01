@@ -1,11 +1,6 @@
-<section class="content-header">
-  <h1>Personas</h1>
-  <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>
-    <li class="active"><i class="fa fa-book"></i> Personas</li>
-  </ol>
-</section>
-
+<%= render 'shared/page_title', title: 'Personas',
+                                small_title: 'lista',
+                                navigation: [{ title: 'Personas', url: '/personas', icon: 'fa-user' }] %>
 <section class="content">
   <div class="box box-primary">
     <div class="box-header">
@@ -32,7 +27,7 @@
 </section>
 <script>
   function buscar_persona(buscar){
-    $.get('/persona/lista', { buscar: buscar },
+    $.get('/personas/lista', { buscar: buscar },
       function(data){
         $('#registros').empty();
         $('#registros').append(data);
@@ -51,46 +46,44 @@
     }
   });
 
-  function fn_eliminar(id){
 
-(new PNotify({
-    title: 'Confirmación',
-    text: 'Seguro de eliminar?',
-    icon: 'glyphicon glyphicon-question-sign',
-    hide: false,
-    confirm: {
-        confirm: true
-    },
-    buttons: {
-        sticker: false
-    },
-    history: {
-        history: false
-    },
-    stack: {
-        'dir1': 'down',
-        'dir2': 'right',
-        'modal': true
-    }
-  })).get().on('pnotify.confirm', function() {
-      $.post('/persona/destroy', {id: id}, function(data){
-      if(data.result = true){
-        $('#fila-' + id).remove();
-        mostrarMensaje('Éxito', data.mensaje, 'success');
-      }else {
-        mostrarMensaje('Error', data.mensaje, 'error');
-      }
+  function fn_eliminar(persona_id){
+    (new PNotify({
+        title: 'Confirmación',
+        text: 'Seguro de eliminar?',
+        icon: 'glyphicon glyphicon-question-sign',
+        hide: false,
+        confirm: {
+            confirm: true
+        },
+        buttons: {
+            sticker: false
+        },
+        history: {
+            history: false
+        },
+        stack: {
+            'dir1': 'down',
+            'dir2': 'right',
+            'modal': true
+        }
+      })).get().on('pnotify.confirm', function() {
+
+        $.ajax({
+              url:   "/personas/"+persona_id,
+              type:  'delete',
+              success:  function (data) {
+                if(data.result == true){
+                  $('#fila-' + data.id).remove();
+                  mostrarMensaje('Éxito', data.mensaje, 'success');
+                }else {
+                  mostrarMensaje('Error', data.mensaje, 'error');
+                }
+              }
+          });
     });
-});
-
-
   }
 
-  <% unless @buscar.blank? %>
-  $(document).ready(function() {
-    $("#txt-buscar").val('<%= @buscar %>');
-    buscar_persona('<%= @buscar %>');
-  });
-  <% end %>
+
 
 </script>

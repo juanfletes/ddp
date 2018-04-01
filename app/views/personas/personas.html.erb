@@ -1,26 +1,25 @@
 <% @personas.each_with_index do |p, index| %>
-
-
 <%
 next unless current_usuario.es_persona_asignada?(p) || current_usuario.es_admin? || current_usuario.es_coordinador?
 %>
 
 <div id="fila-<%= p.id %>" class="row row-coustom <%= 'row-coustom-background' if index.even? %>" >
 
-  <div class="col-xs-12 col-md-3">
-      <a href="/personas/<%= m.id %>"><%= p.nombre_completo %> <%= '|' unless p.telefono.blank? %> <%= p.telefono %></a>
+  <div class="col-xs-1 col-md-1">
+    <strong>
+      <%= index + 1 %>
+    </strong>
+  </div>
+
+  <div class="col-xs-12 col-md-10">
+      <a href="/personas/<%= p.id %>"><%= p.nombre_completo %> <%= '|' unless p.telefono.blank? %> <%= p.telefono %></a>
   </div>
 
   <div class="col-xs-1 col-md-1">
-    <button class="btn btn-danger" onclick="fn_eliminar(<%= m.id %>);">
+    <button class="btn btn-danger" onclick="fn_eliminar(<%= p.id %>);">
       <i class="fa fa-trash" style="color: #ffffff"></i>
     </button>
   </div>
 
 </div>
 <% end %>
-<script type="text/javascript">
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip();
-});
-</script>

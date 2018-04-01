@@ -1,0 +1,30 @@
+<div id="nota-<%= persona_nota_seguimiento.id %>" class="direct-chat-msg">
+  <div class="direct-chat-info clearfix">
+    <span class="direct-chat-name pull-left"><%= persona_nota_seguimiento.usuario.nombre_completo %></span>
+    <span class="direct-chat-timestamp pull-right"><%= persona_nota_seguimiento.fecha %></span>
+  </div>
+  <%= gravatar_image_tag(persona_nota_seguimiento.usuario.email, { alt: persona_nota_seguimiento.usuario.email, class: 'direct-chat-img' }) %>
+  <div class="direct-chat-text">
+    <div class="row">
+      <div class="col-xs-12">
+        <%= simple_format(persona_nota_seguimiento.notas) %>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-xs-10">
+      </div>
+      <div class="col-xs-1">
+        <% if can? :edit, persona_nota_seguimiento %>
+          <%= link_to 'Editar', ("/personas/#{persona_nota_seguimiento.persona.id}/personas_nota_seguimiento/#{persona_nota_seguimiento.id}/edit") , class: "btn btn-xs btn-primary btn-block"%>
+        <% end %>
+      </div>
+      <div class="col-xs-1">
+        <% if can? :destroy, persona_nota_seguimiento %>
+        <%= link_to 'Eliminar', [persona_nota_seguimiento.persona, persona_nota_seguimiento],
+               method: :delete,
+               class: "btn btn-xs btn-danger btn-block" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,15 +1,7 @@
-<section class="content-header">
-  <h1>
-    Usuario
-    <small>ID #<%=@usuario.id%></small>
-  </h1>
-  <ol class="breadcrumb">
-    <li><a href="/"><i class="fa fa-dashboard"></i> Inicio</a></li>
-    <li><a href="/usuarios"><i class="fa fa-circle-o"></i> Usuarios</a></li>
-    <li class="active">Editar</li>
-  </ol>
-</section>
-
+<%= render 'shared/page_title', title: 'Usuario',
+                                small_title: "ID ##{@usuario.id}",
+                                navigation: [{ title: 'Usuarios', url: '/usuarios', icon: 'fa-book' },
+                                             { title: 'Editar', url: '#', icon: 'fa-circle-o' }] %>
 <section class="content">
 
   <div class="box box-primary">
